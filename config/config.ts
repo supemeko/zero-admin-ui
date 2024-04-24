@@ -69,4 +69,11 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  chainWebpack(memo, args) {
+    memo.module
+    .rule('excludeMarkdown')
+    .test(/\.md$/) // 匹配所有以 .md 结尾的文件
+    .use('ignore')
+    .loader('ignore-loader');
+  },
 });

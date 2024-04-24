@@ -1,12 +1,12 @@
-import {Settings as LayoutSettings, MenuDataItem} from '@ant-design/pro-layout';
-import {SettingDrawer} from '@ant-design/pro-layout';
-import {PageLoading} from '@ant-design/pro-layout';
-import {RunTimeLayoutConfig} from 'umi';
-import {history} from 'umi';
+import { Settings as LayoutSettings, MenuDataItem } from '@ant-design/pro-layout';
+import { SettingDrawer } from '@ant-design/pro-layout';
+import { PageLoading } from '@ant-design/pro-layout';
+import { RunTimeLayoutConfig } from 'umi';
+import { history } from 'umi';
 import RightContent from '@/components/RightContent';
-import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
+import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import defaultSettings from '../config/defaultSettings';
-import {tree} from "@/utils/utils";
+import { tree } from "@/utils/utils";
 import {
   SmileOutlined,
   HeartOutlined,
@@ -17,19 +17,28 @@ import {
   DollarCircleOutlined,
   AlertOutlined,
 } from '@ant-design/icons';
-import {RequestConfig,} from "@@/plugin-request/request";
-import {RequestInterceptor, RequestOptionsInit} from 'umi-request';
-import {notification} from "antd";
+import { RequestConfig, } from "@@/plugin-request/request";
+import { RequestInterceptor, RequestOptionsInit } from 'umi-request';
+import { notification } from "antd";
+
+type IconMapKey = "SmileOutlined" |
+  "HeartOutlined" |
+  "SettingOutlined" |
+  "DeleteOutlined" |
+  "FrownOutlined" |
+  "GiftOutlined" |
+  "DollarCircleOutlined" |
+  "AlertOutlined";
 
 const IconMap = {
-  SmileOutlined: <SmileOutlined/>,
-  HeartOutlined: <HeartOutlined/>,
-  SettingOutlined: <SettingOutlined/>,
-  DeleteOutlined: <DeleteOutlined/>,
-  FrownOutlined: <FrownOutlined/>,
-  GiftOutlined: <GiftOutlined/>,
-  DollarCircleOutlined: <DollarCircleOutlined/>,
-  AlertOutlined: <AlertOutlined/>,
+  SmileOutlined: <SmileOutlined />,
+  HeartOutlined: <HeartOutlined />,
+  SettingOutlined: <SettingOutlined />,
+  DeleteOutlined: <DeleteOutlined />,
+  FrownOutlined: <FrownOutlined />,
+  GiftOutlined: <GiftOutlined />,
+  DollarCircleOutlined: <DollarCircleOutlined />,
+  AlertOutlined: <AlertOutlined />,
 };
 
 
@@ -37,7 +46,7 @@ const loginPath = '/user/login';
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
-  loading: <PageLoading/>,
+  loading: <PageLoading />,
 };
 
 /**
@@ -75,16 +84,16 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => {
+export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    rightContentRender: () => <RightContent/>,
+    rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
       content: initialState?.currentUser?.name,
     },
     menuDataRender: () => menuDataRender(),
     onPageChange: () => {
-      const {location} = history;
+      const { location } = history;
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
@@ -132,10 +141,10 @@ const menuDataRender: any = () => {
 };
 
 const loopMenuItem = (menus: any[]): MenuDataItem[] =>
-  menus.map(({icon, children, ...item}) => {
+  menus.map(({ icon, children, ...item }) => {
     return {
       ...item,
-      icon: icon && IconMap[icon as string],
+      icon: icon && IconMap[icon as IconMapKey],
       children: children && loopMenuItem(children),
     };
   });
@@ -163,10 +172,10 @@ const codeMessage = {
  * 异常处理程序
  */
 const errorHandler = (error: any) => {
-  const {response} = error;
+  const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
-    const {status, url} = response;
+    const { status, url } = response;
 
     notification.error({
       message: `请求错误 ${status}: ${url}`,
