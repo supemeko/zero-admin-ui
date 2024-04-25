@@ -17,7 +17,7 @@ import {
   DollarCircleOutlined,
   AlertOutlined,
 } from '@ant-design/icons';
-import { RequestConfig } from '@@/plugin-request/request';
+import { RequestConfig, ErrorShowType } from '@@/plugin-request/request';
 import { RequestInterceptor, RequestOptionsInit } from 'umi-request';
 import { notification } from 'antd';
 
@@ -172,7 +172,7 @@ const codeMessage = {
  * 异常处理程序
  */
 const errorHandler = (error: any) => {
-  const { response } = error;
+  const { response, name, info } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -181,6 +181,7 @@ const errorHandler = (error: any) => {
       message: `请求错误 ${status}: ${url}`,
       description: errorText,
     });
+    throw error;
   }
 
   if (!response) {
@@ -188,7 +189,23 @@ const errorHandler = (error: any) => {
       description: '您的网络发生异常，无法连接服务器',
       message: '网络异常',
     });
+    throw error;
   }
+
+  //RequestConfig.errorConfig.adaptor定义的业务异常
+  if (name == 'BizError' && info && info.errorMessage && info.errorCode) {
+    notification.error({
+      description: `响应码:【${info.errorCode}】，错误提示: 【${info.errorMessage}】`,
+      message: '服务端响应异常',
+    });
+    throw error;
+  }
+
+  notification.error({
+    description: `后端未按要求响应或者前端处理不正确`,
+    message: '无法处理后端响应的结果',
+  });
+
   throw error;
 };
 
@@ -202,7 +219,21 @@ const addToken: RequestInterceptor = (url: string, options: RequestOptionsInit) 
   };
 };
 
+//使用plugin-request管理前端向后端发送的请求
 export const request: RequestConfig = {
   errorHandler,
   requestInterceptors: [addToken],
+  errorConfig: {
+    adaptor: (res, ctx) => {
+      // 函数返回后，umi会抛出一个RequestError
+      // 幸运的话，会被RequestConfig.errorHandler接收
+      return {
+        success: res.code == '000000',
+        data: res,
+        errorCode: res.code,
+        errorMessage: res.message,
+        showType: ErrorShowType.NOTIFICATION,
+      };
+    },
+  },
 };
