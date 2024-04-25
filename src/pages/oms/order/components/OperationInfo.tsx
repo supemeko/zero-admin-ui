@@ -1,15 +1,14 @@
 import React from 'react';
-import {Table, Tag} from 'antd';
-import type {ColumnsType} from "antd/es/table";
-import '../index.less'
-import type {OperateHistoryDataListItem} from "../data.d";
+import { Table, Tag } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import '../index.less';
+import type { OperateHistoryDataListItem } from '../data.d';
 
 export interface OperationInfoProps {
   currentData?: OperateHistoryDataListItem[];
 }
 
 const OperationInfo: React.FC<OperationInfoProps> = (props) => {
-
   const columns: ColumnsType<OperateHistoryDataListItem> = [
     {
       title: '操作者',
@@ -22,26 +21,56 @@ const OperationInfo: React.FC<OperationInfoProps> = (props) => {
     {
       title: '订单状态',
       dataIndex: 'orderStatus',
-      render: (_, {orderStatus}) => (
+      render: (_, { orderStatus }) => (
         <>
-          {orderStatus === 0 && <Tag color={orderStatus === 0 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            待付款
-          </Tag>}
-          {orderStatus === 1 && <Tag color={orderStatus === 1 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            待发货
-          </Tag>}
-          {orderStatus === 2 && <Tag color={orderStatus === 2 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            已发货
-          </Tag>}
-          {orderStatus === 3 && <Tag color={orderStatus === 3 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            已完成
-          </Tag>}
-          {orderStatus === 4 && <Tag color={orderStatus === 4 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            已关闭
-          </Tag>}
-          {orderStatus === 5 && <Tag color={orderStatus === 5 ? '#67c23a' : '#67c23a'} style={{width: 50, height: 30, textAlign: "center", paddingTop: 4}}>
-            无效订单
-          </Tag>}
+          {orderStatus === 0 && (
+            <Tag
+              color={orderStatus === 0 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              待付款
+            </Tag>
+          )}
+          {orderStatus === 1 && (
+            <Tag
+              color={orderStatus === 1 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              待发货
+            </Tag>
+          )}
+          {orderStatus === 2 && (
+            <Tag
+              color={orderStatus === 2 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              已发货
+            </Tag>
+          )}
+          {orderStatus === 3 && (
+            <Tag
+              color={orderStatus === 3 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              已完成
+            </Tag>
+          )}
+          {orderStatus === 4 && (
+            <Tag
+              color={orderStatus === 4 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              已关闭
+            </Tag>
+          )}
+          {orderStatus === 5 && (
+            <Tag
+              color={orderStatus === 5 ? '#67c23a' : '#67c23a'}
+              style={{ width: 50, height: 30, textAlign: 'center', paddingTop: 4 }}
+            >
+              无效订单
+            </Tag>
+          )}
         </>
       ),
     },
@@ -59,9 +88,7 @@ const OperationInfo: React.FC<OperationInfoProps> = (props) => {
     },
   ];
 
-  return (
-    <Table columns={columns} dataSource={props.currentData} pagination={false} bordered/>
-  );
+  return <Table columns={columns} dataSource={props.currentData} pagination={false} bordered />;
 };
 
 export default OperationInfo;

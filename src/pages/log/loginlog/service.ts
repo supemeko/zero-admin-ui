@@ -1,5 +1,5 @@
-import {request} from 'umi';
-import type {TableListParams} from './data.d';
+import { request } from 'umi';
+import type { TableListParams } from './data.d';
 
 /**
  * 查询登录日志

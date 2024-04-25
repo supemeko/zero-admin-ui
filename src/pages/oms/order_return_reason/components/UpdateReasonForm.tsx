@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {Form, Input, InputNumber, Modal, Select} from 'antd';
-import type {ReturnReasonListItem} from '../data.d';
+import React, { useEffect } from 'react';
+import { Form, Input, InputNumber, Modal, Select } from 'antd';
+import type { ReturnReasonListItem } from '../data.d';
 
 export interface UpdateFormProps {
   onCancel: () => void;
@@ -12,25 +12,19 @@ export interface UpdateFormProps {
 const FormItem = Form.Item;
 
 const formLayout = {
-  labelCol: {span: 7},
-  wrapperCol: {span: 13},
+  labelCol: { span: 7 },
+  wrapperCol: { span: 13 },
 };
 
 const UpdateReasonForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
-  const {Option} = Select;
+  const { Option } = Select;
 
-  const {
-    onSubmit,
-    onCancel,
-    updateModalVisible,
-    values,
-  } = props;
+  const { onSubmit, onCancel, updateModalVisible, values } = props;
 
   useEffect(() => {
     if (form && !updateModalVisible) {
       form.resetFields();
-
     }
   }, [props.updateModalVisible]);
 
@@ -56,44 +50,30 @@ const UpdateReasonForm: React.FC<UpdateFormProps> = (props) => {
   const renderContent = () => {
     return (
       <>
-        <FormItem
-          name="id"
-          label="主键"
-          hidden
-        >
-          <Input id="update-id" placeholder="请输入主键"/>
+        <FormItem name="id" label="主键" hidden>
+          <Input id="update-id" placeholder="请输入主键" />
         </FormItem>
         <FormItem
           name="name"
           label="退货类型"
-          rules={[{required: true, message: '请输入退货类型!'}]}
+          rules={[{ required: true, message: '请输入退货类型!' }]}
         >
-          <Input id="update-name" placeholder={'请输入退货类型'}/>
+          <Input id="update-name" placeholder={'请输入退货类型'} />
         </FormItem>
-        <FormItem
-          name="sort"
-          label="排序"
-          rules={[{required: true, message: '请输入排序!'}]}
-        >
-          <InputNumber/>
+        <FormItem name="sort" label="排序" rules={[{ required: true, message: '请输入排序!' }]}>
+          <InputNumber />
         </FormItem>
-        <FormItem
-          name="status"
-          label="状态"
-          rules={[{required: true, message: '请选择状态!'}]}
-        >
+        <FormItem name="status" label="状态" rules={[{ required: true, message: '请选择状态!' }]}>
           <Select id="status" placeholder={'请选择状态'}>
             <Option value={0}>禁用</Option>
             <Option value={1}>正常</Option>
           </Select>
         </FormItem>
-
       </>
     );
   };
 
-
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal
@@ -103,11 +83,7 @@ const UpdateReasonForm: React.FC<UpdateFormProps> = (props) => {
       open={updateModalVisible}
       {...modalFooter}
     >
-      <Form
-        {...formLayout}
-        form={form}
-        onFinish={handleFinish}
-      >
+      <Form {...formLayout} form={form} onFinish={handleFinish}>
         {renderContent()}
       </Form>
     </Modal>

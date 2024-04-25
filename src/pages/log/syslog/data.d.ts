@@ -3,7 +3,6 @@ export interface TableListItem {
   requestParams: string;
   responseParams: string;
   method: string;
-
 }
 
 export interface TableListPagination {

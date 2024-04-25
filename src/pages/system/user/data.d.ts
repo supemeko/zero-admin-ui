@@ -23,7 +23,6 @@ export interface UserListParams {
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }
 
 export interface RoleList {
@@ -31,7 +30,6 @@ export interface RoleList {
   name: string;
   remark: string;
 }
-
 
 export interface JobList {
   id: number;

@@ -1,14 +1,19 @@
-import {PlusOutlined, ExclamationCircleOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateRecommendSubjectForm from './components/CreateRecommendSubjectForm';
 import UpdateRecommendSubjectForm from './components/UpdateRecommendSubjectForm';
-import type {RecommendSubjectListItem} from './data.d';
+import type { RecommendSubjectListItem } from './data.d';
 import {
   queryRecommendSubject,
   updateRecommendSubject,
@@ -91,15 +96,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: RecommendSubjectListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -129,8 +133,8 @@ const TableList: React.FC = () => {
       title: '推荐状态',
       dataIndex: 'recommendStatus',
       valueEnum: {
-        0: {text: '不推荐', status: 'Error'},
-        1: {text: '推荐', status: 'Success'},
+        0: { text: '不推荐', status: 'Error' },
+        1: { text: '推荐', status: 'Success' },
       },
     },
     {
@@ -146,7 +150,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -158,7 +162,7 @@ const TableList: React.FC = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -181,7 +185,7 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 选择专题
+            <PlusOutlined /> 选择专题
           </Button>,
         ]}
         request={queryRecommendSubject}

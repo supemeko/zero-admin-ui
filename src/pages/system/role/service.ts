@@ -1,9 +1,9 @@
-import {request} from 'umi';
-import type {RoleListParams, RoleListItem} from './data.d';
+import { request } from 'umi';
+import type { RoleListParams, RoleListItem } from './data.d';
 
 export async function queryRole(params: RoleListParams) {
   if (params.status != null) {
-    params.status = Number(params.status)
+    params.status = Number(params.status);
   }
   return request('/api/sys/role/list', {
     method: 'POST',
@@ -22,7 +22,7 @@ export async function queryMenuByRoleId(params: { id?: number }) {
   });
 }
 
-export async function updateRoleMenu(params: { roleId: number, menuIds: number[] }) {
+export async function updateRoleMenu(params: { roleId: number; menuIds: number[] }) {
   return request('/api/sys/role/updateRoleMenu', {
     method: 'POST',
     data: {

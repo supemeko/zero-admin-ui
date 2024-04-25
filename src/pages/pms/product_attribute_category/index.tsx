@@ -1,18 +1,28 @@
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
-import {Button, Divider, Drawer, message, Modal} from 'antd';
-import React, {useRef, useState} from 'react';
-import {FooterToolbar, PageContainer} from '@ant-design/pro-layout';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, Drawer, message, Modal } from 'antd';
+import React, { useRef, useState } from 'react';
+import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import CreateAttributeForm from './components/CreateAttributeForm';
 import UpdateAttributeForm from './components/UpdateAttributeForm';
-import type {AttributeCategoryListItem} from './data.d';
-import {addAttributeCategory, queryCategoryAttribute, removeAttributeCategory, updateAttributeCategory} from './service';
-import {history} from 'umi';
+import type { AttributeCategoryListItem } from './data.d';
+import {
+  addAttributeCategory,
+  queryCategoryAttribute,
+  removeAttributeCategory,
+  updateAttributeCategory,
+} from './service';
+import { history } from 'umi';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -21,7 +31,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: AttributeCategoryListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addAttributeCategory({...fields});
+    await addAttributeCategory({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -50,7 +60,6 @@ const handleUpdate = async (fields: AttributeCategoryListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -84,15 +93,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: AttributeCategoryListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -106,10 +114,16 @@ const TableList: React.FC = () => {
       title: '分类名称',
       dataIndex: 'name',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -131,7 +145,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               // handleUpdateModalVisible(true);
               // setCurrentRow(record);
@@ -140,7 +154,6 @@ const TableList: React.FC = () => {
           >
             属性列表/参数列表
           </Button>
-
         </>
       ),
     },
@@ -152,7 +165,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -160,11 +173,11 @@ const TableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -181,14 +194,14 @@ const TableList: React.FC = () => {
       <ProTable<AttributeCategoryListItem>
         headerTitle="分类列表"
         actionRef={actionRef}
-        tableLayout={"fixed"}
+        tableLayout={'fixed'}
         rowKey="id"
         search={{
           labelWidth: 120,
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建分类
+            <PlusOutlined /> 新建分类
           </Button>,
         ]}
         request={queryCategoryAttribute}
@@ -196,13 +209,13 @@ const TableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -217,7 +230,6 @@ const TableList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
-
 
       <CreateAttributeForm
         key={'CreateAttributeForm'}
@@ -267,7 +279,7 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >

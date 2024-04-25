@@ -1,13 +1,12 @@
-import {EditOutlined} from '@ant-design/icons';
-import {Button, message,} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
+import { EditOutlined } from '@ant-design/icons';
+import { Button, message } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import UpdateSettingForm from './components/UpdateSettingForm';
-import type {SettingListItem} from './data.d';
-import {querySetting, updateSetting} from './service';
-
+import type { SettingListItem } from './data.d';
+import { querySetting, updateSetting } from './service';
 
 /**
  * 更新节点
@@ -28,12 +27,10 @@ const handleUpdate = async (fields: SettingListItem) => {
   }
 };
 
-
 const TableList: React.FC = () => {
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<SettingListItem>();
-
 
   const columns: ProColumns<SettingListItem>[] = [
     {
@@ -84,7 +81,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -107,7 +104,7 @@ const TableList: React.FC = () => {
         toolBarRender={false}
         request={querySetting}
         columns={columns}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
 
       <UpdateSettingForm
@@ -129,7 +126,6 @@ const TableList: React.FC = () => {
         updateModalVisible={updateModalVisible}
         currentData={currentRow || {}}
       />
-
     </PageContainer>
   );
 };

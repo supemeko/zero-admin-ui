@@ -3,10 +3,10 @@ import { BrandListParams, BrandListItem } from './data.d';
 
 export async function queryBrand(params: BrandListParams) {
   if (params.factoryStatus != null) {
-    params.factoryStatus = Number(params.factoryStatus)
+    params.factoryStatus = Number(params.factoryStatus);
   }
   if (params.showStatus != null) {
-    params.showStatus = Number(params.showStatus)
+    params.showStatus = Number(params.showStatus);
   }
   return request('/api/product/brand/list', {
     method: 'POST',
@@ -42,4 +42,3 @@ export async function updateBrand(params: BrandListItem) {
     },
   });
 }
-

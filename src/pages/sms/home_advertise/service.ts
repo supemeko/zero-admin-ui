@@ -1,10 +1,10 @@
 import { request } from 'umi';
-import {HomeAdvertiseListParams, HomeAdvertiseListItem} from './data.d';
-import moment from "moment";
+import { HomeAdvertiseListParams, HomeAdvertiseListItem } from './data.d';
+import moment from 'moment';
 
 export async function queryHomeAdvertise(params: HomeAdvertiseListParams) {
   if (params.type != null) {
-    params.type = Number(params.type)
+    params.type = Number(params.type);
   }
   return request('/api/sms/homeadvertise/list', {
     method: 'POST',

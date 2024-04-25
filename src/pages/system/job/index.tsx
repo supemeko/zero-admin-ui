@@ -1,17 +1,22 @@
-import {PlusOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateJobForm from './components/CreateJobForm';
 import UpdateJobForm from './components/UpdateJobForm';
-import type {JobListItem} from './data.d';
-import {queryJob, updateJob, addJob, removeJob} from './service';
+import type { JobListItem } from './data.d';
+import { queryJob, updateJob, addJob, removeJob } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -21,7 +26,7 @@ const handleAdd = async (fields: JobListItem) => {
   const hide = message.loading('正在添加');
   try {
     fields.orderNum = Number(fields.orderNum);
-    await addJob({...fields});
+    await addJob({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -83,15 +88,14 @@ const JobTableList: React.FC = () => {
   const showDeleteConfirm = (item: JobListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -105,10 +109,16 @@ const JobTableList: React.FC = () => {
       title: '职位名称',
       dataIndex: 'jobName',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -120,8 +130,8 @@ const JobTableList: React.FC = () => {
       title: '状态',
       dataIndex: 'delFlag',
       valueEnum: {
-        1: {text: '正常', status: 'Success'},
-        0: {text: '停用', status: 'Error'},
+        1: { text: '正常', status: 'Success' },
+        0: { text: '停用', status: 'Error' },
       },
     },
     {
@@ -160,7 +170,7 @@ const JobTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -168,11 +178,11 @@ const JobTableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -195,7 +205,7 @@ const JobTableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" key="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建职位
+            <PlusOutlined /> 新建职位
           </Button>,
         ]}
         request={queryJob}
@@ -203,13 +213,13 @@ const JobTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -273,14 +283,14 @@ const JobTableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<JobListItem>
             column={2}
-            title={"职位详情"}
+            title={'职位详情'}
             request={async () => ({
               data: currentRow || {},
             })}

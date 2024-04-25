@@ -3,7 +3,6 @@ export interface MenuListItem {
   orderNum?: number;
   type?: number;
   name: string;
-
 }
 
 export interface MenuListPagination {
@@ -22,5 +21,4 @@ export interface MenuListParams {
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

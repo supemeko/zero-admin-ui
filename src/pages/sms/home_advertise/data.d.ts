@@ -23,5 +23,4 @@ export interface HomeAdvertiseListParams {
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

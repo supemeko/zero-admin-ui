@@ -1,10 +1,10 @@
-import {request} from 'umi';
-import type {UserListParams, UserListItem} from './data.d';
+import { request } from 'umi';
+import type { UserListParams, UserListItem } from './data.d';
 
 //查询用户列表
 export async function queryUserList(params: UserListParams) {
   if (params.status != null) {
-    params.status = Number(params.status)
+    params.status = Number(params.status);
   }
   return request('/api/sys/user/list', {
     method: 'POST',
@@ -23,7 +23,6 @@ export async function queryAllRelations(params?: UserListParams) {
     },
   });
 }
-
 
 //删除用户
 export async function removeUser(params: { ids: number[] }) {
@@ -54,4 +53,3 @@ export async function updateUser(params: UserListItem) {
     },
   });
 }
-

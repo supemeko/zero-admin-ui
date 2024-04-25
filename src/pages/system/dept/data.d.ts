@@ -17,11 +17,9 @@ export interface DeptListData {
 }
 
 export interface DeptListParams {
-
   pageSize?: number;
   current?: number;
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

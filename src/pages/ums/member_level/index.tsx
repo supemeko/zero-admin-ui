@@ -4,18 +4,18 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
-import ProDescriptions, {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProDescriptions, { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateLevelForm from './components/CreateLevelForm';
 import UpdateLevelForm from './components/UpdateLevelForm';
-import type {LevelListItem} from './data.d';
-import {queryLevel, updateLevel, addLevel, removeLevel} from './service';
+import type { LevelListItem } from './data.d';
+import { queryLevel, updateLevel, addLevel, removeLevel } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -86,15 +86,14 @@ const MemberLevelList: React.FC<{}> = () => {
   const showDeleteConfirm = (item: LevelListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -130,8 +129,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'defaultStatus',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -149,8 +148,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgeFreeFreight',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -158,8 +157,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgeSignIn',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -167,8 +166,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgeComment',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -176,8 +175,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgePromotion',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -185,8 +184,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgeMemberPrice',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -194,8 +193,8 @@ const MemberLevelList: React.FC<{}> = () => {
       dataIndex: 'priviledgeBirthday',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -212,7 +211,7 @@ const MemberLevelList: React.FC<{}> = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -224,7 +223,7 @@ const MemberLevelList: React.FC<{}> = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -247,7 +246,7 @@ const MemberLevelList: React.FC<{}> = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建等级
+            <PlusOutlined /> 新建等级
           </Button>,
         ]}
         request={queryLevel}
@@ -255,7 +254,7 @@ const MemberLevelList: React.FC<{}> = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar

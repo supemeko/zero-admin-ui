@@ -5,7 +5,6 @@ export interface HomeNewProductListItem {
 
 export interface ProductListItem {
   id: number;
-
 }
 
 export interface HomeNewProductListPagination {

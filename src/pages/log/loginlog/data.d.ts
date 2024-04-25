@@ -1,6 +1,5 @@
 export interface TableListItem {
   id: number;
-
 }
 
 export interface TableListPagination {
@@ -15,13 +14,11 @@ export interface TableListData {
 }
 
 export interface TableListParams {
-
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
 }
-
 
 export interface StatisticsLoginLog {
   dayLoginCount: number;

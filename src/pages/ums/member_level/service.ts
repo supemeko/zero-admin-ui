@@ -10,7 +10,6 @@ export async function queryLevel(params?: LevelListParams) {
   });
 }
 
-
 export async function removeLevel(params: { ids: number[] }) {
   return request('/api/member/level/delete', {
     method: 'POST',
@@ -37,4 +36,3 @@ export async function updateLevel(params: LevelListItem) {
     },
   });
 }
-

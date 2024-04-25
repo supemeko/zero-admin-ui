@@ -1,15 +1,14 @@
-import {EditOutlined} from '@ant-design/icons';
-import {Button, Drawer, message} from 'antd';
-import React, {useRef, useState} from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import { EditOutlined } from '@ant-design/icons';
+import { Button, Drawer, message } from 'antd';
+import React, { useRef, useState } from 'react';
+import { PageContainer } from '@ant-design/pro-layout';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import ReturnApplyDetailModel from './components/ReturnApplyDetailModel';
-import type {ReturnApplyListItem} from './data.d';
-import {queryReturnApply, updateReturnApply} from './service';
-
+import type { ReturnApplyListItem } from './data.d';
+import { queryReturnApply, updateReturnApply } from './service';
 
 /**
  * 更新节点
@@ -30,7 +29,6 @@ const handleUpdate = async (fields: ReturnApplyListItem) => {
   }
 };
 
-
 const ReturnApplyTableList: React.FC = () => {
   const [detailModalVisible, handleDetailModalVisible] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
@@ -49,16 +47,22 @@ const ReturnApplyTableList: React.FC = () => {
       title: '订单编号',
       dataIndex: 'orderSn',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
       title: '申请时间',
       dataIndex: 'createTime',
-      valueType: 'dateTime'
+      valueType: 'dateTime',
     },
     {
       title: '会员用户名',
@@ -85,10 +89,10 @@ const ReturnApplyTableList: React.FC = () => {
       title: '状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '待处理', status: 'Error'},
-        1: {text: '退货中', status: 'Success'},
-        2: {text: '已完成', status: 'Success'},
-        3: {text: '已拒绝', status: 'Success'},
+        0: { text: '待处理', status: 'Error' },
+        1: { text: '退货中', status: 'Success' },
+        2: { text: '已完成', status: 'Success' },
+        3: { text: '已拒绝', status: 'Success' },
       },
     },
     {
@@ -111,7 +115,7 @@ const ReturnApplyTableList: React.FC = () => {
     {
       title: '处理时间',
       dataIndex: 'handleTime',
-      valueType: 'dateTime'
+      valueType: 'dateTime',
     },
     {
       title: '操作',
@@ -121,7 +125,7 @@ const ReturnApplyTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleDetailModalVisible(true);
               setCurrentRow(record);
@@ -149,14 +153,13 @@ const ReturnApplyTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => console.log(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
-
 
       <ReturnApplyDetailModel
         key={'UpdateReturnApplyForm'}
         onSubmit={async (value) => {
-          value.companyAddressId = companyAddressId
+          value.companyAddressId = companyAddressId;
           const success = await handleUpdate(value);
           if (success) {
             handleDetailModalVisible(false);
@@ -167,7 +170,7 @@ const ReturnApplyTableList: React.FC = () => {
           }
         }}
         getCompanyAddressId={async (addressId) => {
-          setCompanyAddressId(addressId)
+          setCompanyAddressId(addressId);
         }}
         onCancel={() => {
           handleDetailModalVisible(false);
@@ -176,7 +179,7 @@ const ReturnApplyTableList: React.FC = () => {
           }
         }}
         detailModalVisible={detailModalVisible}
-        currentData={currentRow || {id: 0}}
+        currentData={currentRow || { id: 0 }}
       />
 
       <Drawer
@@ -184,14 +187,14 @@ const ReturnApplyTableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<ReturnApplyListItem>
             column={2}
-            title={"退货详情"}
+            title={'退货详情'}
             request={async () => ({
               data: currentRow || {},
             })}

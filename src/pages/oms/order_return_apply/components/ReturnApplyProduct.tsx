@@ -1,15 +1,14 @@
 import React from 'react';
-import {Card, Table} from 'antd';
-import type {ReturnApplyListItem} from '../data.d';
-import type {ColumnsType} from "antd/es/table";
-import '../index.less'
+import { Card, Table } from 'antd';
+import type { ReturnApplyListItem } from '../data.d';
+import type { ColumnsType } from 'antd/es/table';
+import '../index.less';
 
 export interface ReturnApplyProductProps {
   currentData: ReturnApplyListItem;
 }
 
 const ReturnApplyProduct: React.FC<ReturnApplyProductProps> = (props) => {
-
   const columns: ColumnsType<ReturnApplyListItem> = [
     {
       title: '商品图片',
@@ -17,9 +16,9 @@ const ReturnApplyProduct: React.FC<ReturnApplyProductProps> = (props) => {
       render: (text) => {
         return (
           <div>
-            <img src={text} style={{width: 100, height: 80}} alt={'商品图片'}/>
+            <img src={text} style={{ width: 100, height: 80 }} alt={'商品图片'} />
           </div>
-        )
+        );
       },
     },
     {
@@ -50,7 +49,7 @@ const ReturnApplyProduct: React.FC<ReturnApplyProductProps> = (props) => {
 
   return (
     <Card title="退货商品">
-      <Table columns={columns} dataSource={[props.currentData]} pagination={false} bordered/>
+      <Table columns={columns} dataSource={[props.currentData]} pagination={false} bordered />
     </Card>
   );
 };

@@ -2,7 +2,6 @@ export interface RoleListItem {
   id: number;
   name: string;
   remark: string;
-
 }
 
 export interface RoleListPagination {

@@ -1,7 +1,6 @@
 export interface LevelListItem {
   id: number;
   name: string;
-
 }
 
 export interface LevelListPagination {
@@ -16,10 +15,8 @@ export interface LevelListData {
 }
 
 export interface LevelListParams {
-
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

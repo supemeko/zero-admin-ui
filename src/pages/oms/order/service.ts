@@ -1,18 +1,18 @@
-import {request} from 'umi';
-import type {OrderListParams, OrderListItem} from './data.d';
+import { request } from 'umi';
+import type { OrderListParams, OrderListItem } from './data.d';
 
 export async function queryOrderList(params: OrderListParams) {
   if (params.payType != null) {
-    params.payType = Number(params.payType)
+    params.payType = Number(params.payType);
   }
   if (params.sourceType != null) {
-    params.sourceType = Number(params.sourceType)
+    params.sourceType = Number(params.sourceType);
   }
   if (params.status != null) {
-    params.status = Number(params.status)
+    params.status = Number(params.status);
   }
   if (params.orderType != null) {
-    params.orderType = Number(params.orderType)
+    params.orderType = Number(params.orderType);
   }
   return request('/api/order/order/list', {
     method: 'POST',
@@ -31,7 +31,6 @@ export async function removeOrder(params: { ids: number[] }) {
   });
 }
 
-
 export async function updateOrder(params: OrderListItem) {
   return request('/api/order/order/update', {
     method: 'POST',
@@ -40,4 +39,3 @@ export async function updateOrder(params: OrderListItem) {
     },
   });
 }
-

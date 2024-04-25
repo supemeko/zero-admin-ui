@@ -1,5 +1,5 @@
-import {request} from 'umi';
-import type {DeptListParams, DeptListItem} from './data.d';
+import { request } from 'umi';
+import type { DeptListParams, DeptListItem } from './data.d';
 
 export async function queryDept(params: DeptListParams) {
   return request('/api/sys/dept/list', {
@@ -9,7 +9,6 @@ export async function queryDept(params: DeptListParams) {
     },
   });
 }
-
 
 export async function removeDept(params: { ids: number[] }) {
   return request('/api/sys/dept/delete', {
@@ -22,7 +21,7 @@ export async function removeDept(params: { ids: number[] }) {
 
 export async function addDept(params: DeptListItem) {
   if (params.parentIds) {
-    params.parentId = params.parentIds.at(-1)
+    params.parentId = params.parentIds.at(-1);
   }
   return request('/api/sys/dept/add', {
     method: 'POST',
@@ -34,7 +33,7 @@ export async function addDept(params: DeptListItem) {
 
 export async function updateDept(params: DeptListItem) {
   if (params.parentIds) {
-    params.parentId = params.parentIds.at(-1)
+    params.parentId = params.parentIds.at(-1);
   }
   return request('/api/sys/dept/update', {
     method: 'POST',

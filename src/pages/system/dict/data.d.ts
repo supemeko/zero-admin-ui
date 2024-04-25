@@ -1,7 +1,5 @@
 export interface DictListItem {
   id: number;
-
-
 }
 
 export interface DictListPagination {
@@ -16,11 +14,9 @@ export interface DictListData {
 }
 
 export interface DictListParams {
-
   delFlag?: number;
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

@@ -4,16 +4,16 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateHomeAdvertiseForm from './components/CreateHomeAdvertiseForm';
 import UpdateHomeAdvertiseForm from './components/UpdateHomeAdvertiseForm';
-import type {HomeAdvertiseListItem} from './data.d';
+import type { HomeAdvertiseListItem } from './data.d';
 import {
   queryHomeAdvertise,
   updateHomeAdvertise,
@@ -21,7 +21,7 @@ import {
   removeHomeAdvertise,
 } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -30,7 +30,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: HomeAdvertiseListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addHomeAdvertise({...fields});
+    await addHomeAdvertise({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -92,15 +92,14 @@ const HomeAdvertiseTableList: React.FC = () => {
   const showDeleteConfirm = (item: HomeAdvertiseListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -130,8 +129,8 @@ const HomeAdvertiseTableList: React.FC = () => {
       title: '轮播位置',
       dataIndex: 'type',
       valueEnum: {
-        0: {text: 'PC首页轮播', status: 'Error'},
-        1: {text: 'app首页轮播', status: 'Success'},
+        0: { text: 'PC首页轮播', status: 'Error' },
+        1: { text: 'app首页轮播', status: 'Success' },
       },
     },
     {
@@ -139,7 +138,7 @@ const HomeAdvertiseTableList: React.FC = () => {
       dataIndex: 'pic',
       hideInSearch: true,
       valueType: 'image',
-      fieldProps: {width: 100, height: 80},
+      fieldProps: { width: 100, height: 80 },
     },
     {
       title: '点击数',
@@ -154,12 +153,12 @@ const HomeAdvertiseTableList: React.FC = () => {
     {
       title: '开始时间',
       dataIndex: 'startTime',
-      valueType: "dateTime"
+      valueType: 'dateTime',
     },
     {
       title: '结束时间',
       dataIndex: 'endTime',
-      valueType: "dateTime"
+      valueType: 'dateTime',
     },
     {
       title: '链接地址',
@@ -180,8 +179,8 @@ const HomeAdvertiseTableList: React.FC = () => {
       title: '上下线状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '禁用', status: 'Error'},
-        1: {text: '正常', status: 'Success'},
+        0: { text: '禁用', status: 'Error' },
+        1: { text: '正常', status: 'Success' },
       },
       hideInSearch: true,
     },
@@ -193,7 +192,7 @@ const HomeAdvertiseTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -202,11 +201,11 @@ const HomeAdvertiseTableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -229,7 +228,7 @@ const HomeAdvertiseTableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建广告
+            <PlusOutlined /> 新建广告
           </Button>,
         ]}
         request={queryHomeAdvertise}
@@ -237,13 +236,13 @@ const HomeAdvertiseTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >

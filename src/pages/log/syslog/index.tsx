@@ -1,15 +1,15 @@
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
-import {Button, Divider, Drawer, message, Modal, Typography} from 'antd';
-import React, {useRef, useState} from 'react';
-import {FooterToolbar, PageContainer} from '@ant-design/pro-layout';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Divider, Drawer, message, Modal, Typography } from 'antd';
+import React, { useRef, useState } from 'react';
+import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {TableListItem} from './data.d';
-import {querySysLog, removeSysLog} from './service';
+import type { TableListItem } from './data.d';
+import { querySysLog, removeSysLog } from './service';
 
-const {Paragraph} = Typography;
+const { Paragraph } = Typography;
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  *  删除节点
@@ -41,15 +41,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: TableListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -58,10 +57,16 @@ const TableList: React.FC = () => {
       title: '用户名',
       dataIndex: 'userName',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -110,7 +115,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               setCurrentRow(record);
               setShowDetail(true);
@@ -118,11 +123,11 @@ const TableList: React.FC = () => {
           >
             查看响应参数
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -135,8 +140,7 @@ const TableList: React.FC = () => {
   ];
 
   return (
-    <PageContainer
-      title={false}>
+    <PageContainer title={false}>
       <ProTable<TableListItem>
         headerTitle="操作日志列表"
         actionRef={actionRef}
@@ -149,20 +153,20 @@ const TableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={async () => {
               await handleRemove(selectedRowsState);
               setSelectedRows([]);
@@ -179,7 +183,7 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >

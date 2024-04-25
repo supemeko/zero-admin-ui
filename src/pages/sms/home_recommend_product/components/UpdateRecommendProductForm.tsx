@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {Form, Input, InputNumber, Modal, Select} from 'antd';
-import type {RecommendProductListItem} from '../data.d';
+import React, { useEffect } from 'react';
+import { Form, Input, InputNumber, Modal, Select } from 'antd';
+import type { RecommendProductListItem } from '../data.d';
 
 export interface UpdateFormProps {
   onCancel: () => void;
@@ -19,7 +19,7 @@ const UpdateRecommendProductForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
   const { Option } = Select;
 
-  const {onSubmit, onCancel, updateModalVisible, values} = props;
+  const { onSubmit, onCancel, updateModalVisible, values } = props;
 
   useEffect(() => {
     if (form && !updateModalVisible) {
@@ -50,13 +50,13 @@ const UpdateRecommendProductForm: React.FC<UpdateFormProps> = (props) => {
     return (
       <>
         <FormItem name="id" label="主键" hidden>
-          <Input id="update-id"/>
+          <Input id="update-id" />
         </FormItem>
         <FormItem name="productId" hidden>
-          <Input id="update-productId"/>
+          <Input id="update-productId" />
         </FormItem>
         <FormItem name="productName" label="商品名称" hidden>
-          <Input id="update-productName"/>
+          <Input id="update-productName" />
         </FormItem>
         <FormItem name="recommendStatus" label="推荐状态">
           <Select id="recommendStatus" placeholder={'请选择推荐状态'}>
@@ -65,7 +65,7 @@ const UpdateRecommendProductForm: React.FC<UpdateFormProps> = (props) => {
           </Select>
         </FormItem>
         <FormItem name="sort" label="排序">
-          <InputNumber/>
+          <InputNumber />
         </FormItem>
       </>
     );

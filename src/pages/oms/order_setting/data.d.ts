@@ -1,6 +1,5 @@
 export interface SettingListItem {
   id: number;
-
 }
 
 export interface SettingListPagination {
@@ -15,10 +14,8 @@ export interface SettingListData {
 }
 
 export interface SettingListParams {
-
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

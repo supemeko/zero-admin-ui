@@ -1,8 +1,7 @@
-import {request} from 'umi';
-import type {AttributeCategoryListParams, AttributeCategoryListItem} from './data.d';
+import { request } from 'umi';
+import type { AttributeCategoryListParams, AttributeCategoryListItem } from './data.d';
 
 export async function queryCategoryAttribute(params: AttributeCategoryListParams) {
-
   return request('/api/product/attributecategory/list', {
     method: 'POST',
     data: {
@@ -37,4 +36,3 @@ export async function updateAttributeCategory(params: AttributeCategoryListItem)
     },
   });
 }
-

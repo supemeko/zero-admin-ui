@@ -1,9 +1,9 @@
-import {request} from 'umi';
-import {DictListParams, DictListItem} from './data.d';
+import { request } from 'umi';
+import { DictListParams, DictListItem } from './data.d';
 
 export async function queryDict(params: DictListParams) {
   if (params.delFlag != null) {
-    params.delFlag = Number(params.delFlag)
+    params.delFlag = Number(params.delFlag);
   }
   return request('/api/sys/dict/list', {
     method: 'POST',

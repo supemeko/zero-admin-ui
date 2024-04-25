@@ -4,18 +4,18 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
-import ProDescriptions, {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProDescriptions, { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateHomeBrandForm from './components/CreateHomeBrandForm';
 import UpdateHomeBrandForm from './components/UpdateHomeBrandForm';
-import type {HomeBrandListItem} from './data.d';
-import {queryHomeBrand, updateHomeBrand, addHomeBrand, removeHomeBrand} from './service';
+import type { HomeBrandListItem } from './data.d';
+import { queryHomeBrand, updateHomeBrand, addHomeBrand, removeHomeBrand } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -90,15 +90,14 @@ const HomeBrandTableList: React.FC = () => {
   const showDeleteConfirm = (item: HomeBrandListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -128,8 +127,8 @@ const HomeBrandTableList: React.FC = () => {
       title: '推荐状态',
       dataIndex: 'recommendStatus',
       valueEnum: {
-        0: {text: '不推荐', status: 'Error'},
-        1: {text: '推荐', status: 'Success'},
+        0: { text: '不推荐', status: 'Error' },
+        1: { text: '推荐', status: 'Success' },
       },
     },
     {
@@ -145,7 +144,7 @@ const HomeBrandTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -157,7 +156,7 @@ const HomeBrandTableList: React.FC = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -180,7 +179,7 @@ const HomeBrandTableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 选择品牌
+            <PlusOutlined /> 选择品牌
           </Button>,
         ]}
         request={queryHomeBrand}

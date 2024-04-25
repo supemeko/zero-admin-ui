@@ -1,5 +1,9 @@
-import {request} from 'umi';
-import type {RecommendSubjectListParams, RecommendSubjectListItem, SubjectListParams} from './data.d';
+import { request } from 'umi';
+import type {
+  RecommendSubjectListParams,
+  RecommendSubjectListItem,
+  SubjectListParams,
+} from './data.d';
 
 export async function queryRecommendSubject(params: RecommendSubjectListParams) {
   if (params.recommendStatus != null) {
@@ -26,7 +30,7 @@ export async function addRecommendSubject(params: number[]) {
   return request('/api/sms/homerecommendsubject/add', {
     method: 'POST',
     data: {
-      subjectIds: params
+      subjectIds: params,
     },
   });
 }

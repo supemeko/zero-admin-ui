@@ -1,5 +1,5 @@
-import {request} from 'umi';
-import type {SettingListParams, SettingListItem} from './data.d';
+import { request } from 'umi';
+import type { SettingListParams, SettingListItem } from './data.d';
 
 export async function querySetting(params?: SettingListParams) {
   return request('/api/order/setting/list', {
@@ -18,4 +18,3 @@ export async function updateSetting(params: SettingListItem) {
     },
   });
 }
-

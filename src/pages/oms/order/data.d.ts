@@ -33,8 +33,8 @@ export interface OrderListItem {
   confirmStatus?: number;
   deleteStatus?: number;
   modifyTime?: string;
-  listOperateHistoryData?: OperateHistoryDataListItem[]
-  listOrderItemData?: OrderItemDataListItem[]
+  listOperateHistoryData?: OperateHistoryDataListItem[];
+  listOrderItemData?: OrderItemDataListItem[];
 }
 
 export interface OperateHistoryDataListItem {
@@ -68,7 +68,6 @@ export interface OrderItemDataListItem {
   giftIntegration?: number;
   giftGrowth?: number;
   productAttr?: string;
-
 }
 
 export interface OrderListPagination {
@@ -91,5 +90,4 @@ export interface OrderListParams {
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

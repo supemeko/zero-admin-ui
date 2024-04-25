@@ -6,7 +6,6 @@ export interface CouponListItem {
   endTime: string;
   amount: number;
   minPoint: number;
-
 }
 
 export interface CouponListPagination {
@@ -28,5 +27,4 @@ export interface CouponListParams {
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

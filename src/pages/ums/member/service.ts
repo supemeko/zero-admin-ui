@@ -1,9 +1,14 @@
-import {request} from 'umi';
-import type {MemberTableListParams, MemberTableListItem, AddressTableListParams, LoginLogListParams} from './data.d';
+import { request } from 'umi';
+import type {
+  MemberTableListParams,
+  MemberTableListItem,
+  AddressTableListParams,
+  LoginLogListParams,
+} from './data.d';
 
 export async function queryMemberList(params: MemberTableListParams) {
   if (params.status != null) {
-    params.status = Number(params.status)
+    params.status = Number(params.status);
   }
   return request('/api/member/member/list', {
     method: 'POST',

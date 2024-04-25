@@ -2,7 +2,6 @@ export interface JobListItem {
   id: number;
   orderNum: number;
   jobName: string;
-
 }
 
 export interface JobListPagination {
@@ -17,11 +16,9 @@ export interface JobListData {
 }
 
 export interface JobListParams {
-
   delFlag?: number;
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

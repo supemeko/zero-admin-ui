@@ -1,17 +1,22 @@
-import {PlusOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateDictForm from './components/CreateDictForm';
 import UpdateDictForm from './components/UpdateDictForm';
-import type {DictListItem} from './data.d';
-import {queryDict, updateDict, addDict, removeDict} from './service';
+import type { DictListItem } from './data.d';
+import { queryDict, updateDict, addDict, removeDict } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -20,7 +25,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: DictListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addDict({...fields});
+    await addDict({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -82,15 +87,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: DictListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -105,10 +109,16 @@ const TableList: React.FC = () => {
       dataIndex: 'value',
       hideInSearch: true,
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -135,8 +145,8 @@ const TableList: React.FC = () => {
       title: '状态',
       dataIndex: 'delFlag',
       valueEnum: {
-        0: {text: '正常', status: 'Success'},
-        1: {text: '禁用', status: 'Error'},
+        0: { text: '正常', status: 'Success' },
+        1: { text: '禁用', status: 'Error' },
       },
     },
     {
@@ -178,7 +188,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -186,11 +196,11 @@ const TableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -213,7 +223,7 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" key="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建字典
+            <PlusOutlined /> 新建字典
           </Button>,
         ]}
         request={queryDict}
@@ -221,13 +231,13 @@ const TableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -291,14 +301,14 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<DictListItem>
             column={2}
-            title={"字典详情"}
+            title={'字典详情'}
             request={async () => ({
               data: currentRow || {},
             })}

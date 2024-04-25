@@ -1,6 +1,5 @@
 export interface AddressTableListItem {
   id: number;
-
 }
 
 export interface AddressTableListPagination {
@@ -15,10 +14,8 @@ export interface AddressTableListData {
 }
 
 export interface AddressTableListParams {
-
   pageSize?: number;
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

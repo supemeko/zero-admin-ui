@@ -1,18 +1,17 @@
 import React from 'react';
-import {Col, Row} from 'antd';
-import type {OrderListItem} from "../data.d";
-import '../index.less'
+import { Col, Row } from 'antd';
+import type { OrderListItem } from '../data.d';
+import '../index.less';
 
 export interface BaseInfoProps {
   currentData: OrderListItem;
 }
 
 const BaseInfo: React.FC<BaseInfoProps> = (props) => {
-
-  const item = props.currentData
+  const item = props.currentData;
   return (
     <>
-      <Row style={{background: '#fafafa', height: 30}}>
+      <Row style={{ background: '#fafafa', height: 30 }}>
         <Col span={4}>订单编号</Col>
         <Col span={4}>发货单流水号</Col>
         <Col span={4}>用户账户</Col>
@@ -20,7 +19,7 @@ const BaseInfo: React.FC<BaseInfoProps> = (props) => {
         <Col span={4}>订单来源</Col>
         <Col span={4}>订单类型</Col>
       </Row>
-      <Row style={{marginTop: 8}}>
+      <Row style={{ marginTop: 8 }}>
         <Col span={4}>{item.orderSn}</Col>
         <Col span={4}>{item.deliverySn}</Col>
         <Col span={4}>{item.memberUserName}</Col>
@@ -32,7 +31,7 @@ const BaseInfo: React.FC<BaseInfoProps> = (props) => {
         {item.orderType === 0 && <Col span={4}>正常订单</Col>}
         {item.orderType === 1 && <Col span={4}>秒杀订单</Col>}
       </Row>
-      <Row style={{background: '#fafafa', height: 30, marginTop: 8}}>
+      <Row style={{ background: '#fafafa', height: 30, marginTop: 8 }}>
         <Col span={4}>配送方式</Col>
         <Col span={4}>物流单号</Col>
         <Col span={4}>自动确认收货时间</Col>
@@ -40,7 +39,7 @@ const BaseInfo: React.FC<BaseInfoProps> = (props) => {
         <Col span={4}>订单可得成长值</Col>
         <Col span={4}>活动信息</Col>
       </Row>
-      <Row style={{marginTop: 8}}>
+      <Row style={{ marginTop: 8 }}>
         <Col span={4}>{item.deliveryCompany}</Col>
         <Col span={4}>{item.deliverySn}</Col>
         <Col span={4}>{item.autoConfirmDay}</Col>

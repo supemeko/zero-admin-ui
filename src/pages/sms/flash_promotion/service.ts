@@ -2,8 +2,8 @@ import { request } from 'umi';
 import { FlashPromotionListParams, FlashPromotionListItem } from './data.d';
 
 export async function queryFlashPromotion(params: FlashPromotionListParams) {
-  if (params.status!=null){
-    params.status=Number(params.status)
+  if (params.status != null) {
+    params.status = Number(params.status);
   }
   return request('/api/sms/flashpromotion/list', {
     method: 'POST',

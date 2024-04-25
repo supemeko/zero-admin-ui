@@ -36,5 +36,3 @@ export async function updateAddress(params: AddressTableListItem) {
     },
   });
 }
-
-

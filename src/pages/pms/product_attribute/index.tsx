@@ -1,18 +1,23 @@
-import {PlusOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateAttributeForm from './components/CreateAttributeForm';
 import UpdateAttributeForm from './components/UpdateAttributeForm';
-import type {AttributeListItem} from './data.d';
-import {queryAttribute, updateAttribute, addAttribute, removeAttribute} from './service';
-import {useLocation} from 'umi';
+import type { AttributeListItem } from './data.d';
+import { queryAttribute, updateAttribute, addAttribute, removeAttribute } from './service';
+import { useLocation } from 'umi';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -21,7 +26,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: AttributeListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addAttribute({...fields});
+    await addAttribute({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -50,7 +55,6 @@ const handleUpdate = async (fields: AttributeListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -84,22 +88,21 @@ const TableList: React.FC = () => {
 
   const location = useLocation();
   // @ts-ignore
-  console.log(location.query.productAttributeCategoryId)
+  console.log(location.query.productAttributeCategoryId);
   // @ts-ignore
   // setProductAttributeCategoryId(location.query.productAttributeCategoryId)
 
   const showDeleteConfirm = (item: AttributeListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -113,10 +116,16 @@ const TableList: React.FC = () => {
       title: '属性/参数名称',
       dataIndex: 'name',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -124,9 +133,9 @@ const TableList: React.FC = () => {
       dataIndex: 'selectType',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '唯一', status: 'Error'},
-        1: {text: '单选', status: 'Success'},
-        2: {text: '多选', status: 'Success'},
+        0: { text: '唯一', status: 'Error' },
+        1: { text: '单选', status: 'Success' },
+        2: { text: '多选', status: 'Success' },
       },
     },
     {
@@ -134,8 +143,8 @@ const TableList: React.FC = () => {
       dataIndex: 'inputType',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '手工录入', status: 'Error'},
-        1: {text: '从列表中选取', status: 'Success'},
+        0: { text: '手工录入', status: 'Error' },
+        1: { text: '从列表中选取', status: 'Success' },
       },
     },
     {
@@ -149,8 +158,8 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInTable: true,
       valueEnum: {
-        0: {text: '普通', status: 'Error'},
-        1: {text: '颜色', status: 'Success'},
+        0: { text: '普通', status: 'Error' },
+        1: { text: '颜色', status: 'Success' },
       },
     },
     {
@@ -159,9 +168,9 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInTable: true,
       valueEnum: {
-        0: {text: '不需要进行检索', status: 'Error'},
-        1: {text: '关键字检索', status: 'Success'},
-        2: {text: '范围检索', status: 'Success'},
+        0: { text: '不需要进行检索', status: 'Error' },
+        1: { text: '关键字检索', status: 'Success' },
+        2: { text: '范围检索', status: 'Success' },
       },
     },
     {
@@ -170,8 +179,8 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInTable: true,
       valueEnum: {
-        0: {text: '不关联', status: 'Error'},
-        1: {text: '关联', status: 'Success'},
+        0: { text: '不关联', status: 'Error' },
+        1: { text: '关联', status: 'Success' },
       },
     },
     {
@@ -180,16 +189,16 @@ const TableList: React.FC = () => {
       hideInSearch: true,
       hideInTable: true,
       valueEnum: {
-        0: {text: '不支持', status: 'Error'},
-        1: {text: '支持', status: 'Success'},
+        0: { text: '不支持', status: 'Error' },
+        1: { text: '支持', status: 'Success' },
       },
     },
     {
       title: '属性的类型',
       dataIndex: 'type',
       valueEnum: {
-        0: {text: '规格', status: 'Error'},
-        1: {text: '参数', status: 'Success'},
+        0: { text: '规格', status: 'Error' },
+        1: { text: '参数', status: 'Success' },
       },
     },
     {
@@ -205,7 +214,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -213,11 +222,11 @@ const TableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -240,7 +249,7 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建
+            <PlusOutlined /> 新建
           </Button>,
         ]}
         request={(params) => {
@@ -249,7 +258,7 @@ const TableList: React.FC = () => {
             // @ts-ignore
             productAttributeCategoryId: location.query.productAttributeCategoryId,
           }).then((res) => {
-            console.log(res)
+            console.log(res);
             if (res.code === '000000') {
               return {
                 data: res.data,
@@ -266,13 +275,13 @@ const TableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -287,7 +296,6 @@ const TableList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
-
 
       <CreateAttributeForm
         key={'CreateAttributeForm'}
@@ -337,7 +345,7 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >

@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {Form, Input, Modal} from 'antd';
-import type {AttributeCategoryListItem} from '../data.d';
+import React, { useEffect } from 'react';
+import { Form, Input, Modal } from 'antd';
+import type { AttributeCategoryListItem } from '../data.d';
 
 export interface CreateFormProps {
   onCancel: () => void;
@@ -11,14 +11,14 @@ export interface CreateFormProps {
 const FormItem = Form.Item;
 
 const formLayout = {
-  labelCol: {span: 7},
-  wrapperCol: {span: 13},
+  labelCol: { span: 7 },
+  wrapperCol: { span: 13 },
 };
 
 const CreateAttributeForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const {onSubmit, onCancel, createModalVisible} = props;
+  const { onSubmit, onCancel, createModalVisible } = props;
 
   useEffect(() => {
     if (form && !createModalVisible) {
@@ -41,13 +41,13 @@ const CreateAttributeForm: React.FC<CreateFormProps> = (props) => {
     return (
       <>
         <FormItem name="name" label="分类名称">
-          <Input id="update-name" placeholder={'请输入分类名称'}/>
+          <Input id="update-name" placeholder={'请输入分类名称'} />
         </FormItem>
       </>
     );
   };
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal

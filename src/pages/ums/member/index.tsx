@@ -1,19 +1,17 @@
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
-import type {MemberTableListItem} from './data.d';
-import {queryMemberList, removeMember} from './service';
-import MemberAddressModal from "@/pages/ums/member/components/MemberAddressModal";
-import MemberLogModal from "@/pages/ums/member/components/MemberLoginLogModal";
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
+import type { MemberTableListItem } from './data.d';
+import { queryMemberList, removeMember } from './service';
+import MemberAddressModal from '@/pages/ums/member/components/MemberAddressModal';
+import MemberLogModal from '@/pages/ums/member/components/MemberLoginLogModal';
 
-
-const {confirm} = Modal;
-
+const { confirm } = Modal;
 
 /**
  *  删除节点
@@ -48,15 +46,14 @@ const MemberList: React.FC<{}> = () => {
   const showDeleteConfirm = (item: MemberTableListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -70,10 +67,16 @@ const MemberList: React.FC<{}> = () => {
       title: '会员名',
       dataIndex: 'username',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -94,8 +97,8 @@ const MemberList: React.FC<{}> = () => {
       title: '状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '禁用', status: 'Error'},
-        1: {text: '正常', status: 'Success'},
+        0: { text: '禁用', status: 'Error' },
+        1: { text: '正常', status: 'Success' },
       },
     },
     {
@@ -108,8 +111,8 @@ const MemberList: React.FC<{}> = () => {
       dataIndex: 'gender',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '女', status: 'Success'},
-        1: {text: '男', status: 'Success'},
+        0: { text: '女', status: 'Success' },
+        1: { text: '男', status: 'Success' },
       },
     },
     {
@@ -165,7 +168,7 @@ const MemberList: React.FC<{}> = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleAddressModalVisible(true);
               setCurrentRow(record);
@@ -173,10 +176,10 @@ const MemberList: React.FC<{}> = () => {
           >
             会员地址
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleLogModalVisible(true);
               setCurrentRow(record);
@@ -184,11 +187,11 @@ const MemberList: React.FC<{}> = () => {
           >
             登录日志
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -215,13 +218,13 @@ const MemberList: React.FC<{}> = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -236,7 +239,6 @@ const MemberList: React.FC<{}> = () => {
           </Button>
         </FooterToolbar>
       )}
-
 
       {/*<CreateMemberForm*/}
       {/*  key={'CreateMemberForm'}*/}
@@ -302,7 +304,7 @@ const MemberList: React.FC<{}> = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >

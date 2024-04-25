@@ -1,20 +1,19 @@
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
-import {Button, Divider, Drawer, message, Modal} from 'antd';
-import React, {useRef, useState} from 'react';
-import {PageContainer} from '@ant-design/pro-layout';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Divider, Drawer, message, Modal } from 'antd';
+import React, { useRef, useState } from 'react';
+import { PageContainer } from '@ant-design/pro-layout';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import OrderDetailModel from './components/OrderDetailModel';
-import type {OrderListItem} from './data.d';
-import {queryOrderList, removeOrder, updateOrder} from './service';
-import NoteOrderModel from "@/pages/oms/order/components/NoteOrderModel";
-import DeliveryModel from "@/pages/oms/order/components/DeliveryModel";
-import OrderTrackingModel from "@/pages/oms/order/components/OrderTrackingModel";
+import type { OrderListItem } from './data.d';
+import { queryOrderList, removeOrder, updateOrder } from './service';
+import NoteOrderModel from '@/pages/oms/order/components/NoteOrderModel';
+import DeliveryModel from '@/pages/oms/order/components/DeliveryModel';
+import OrderTrackingModel from '@/pages/oms/order/components/OrderTrackingModel';
 
-
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 更新节点
@@ -68,15 +67,14 @@ const OrderTableList: React.FC = () => {
   const showDeleteConfirm = (item: OrderListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -90,10 +88,16 @@ const OrderTableList: React.FC = () => {
       title: '订单编号',
       dataIndex: 'orderSn',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -144,29 +148,29 @@ const OrderTableList: React.FC = () => {
       title: '支付方式',
       dataIndex: 'payType',
       valueEnum: {
-        0: {text: '未支付', status: 'Error'},
-        1: {text: '支付宝', status: 'Success'},
-        2: {text: '微信', status: 'Success'},
+        0: { text: '未支付', status: 'Error' },
+        1: { text: '支付宝', status: 'Success' },
+        2: { text: '微信', status: 'Success' },
       },
     },
     {
       title: '来源',
       dataIndex: 'sourceType',
       valueEnum: {
-        0: {text: 'PC订单', status: 'Error'},
-        1: {text: 'app订单', status: 'Success'},
+        0: { text: 'PC订单', status: 'Error' },
+        1: { text: 'app订单', status: 'Success' },
       },
     },
     {
       title: '状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '待付款', status: 'Success'},
-        1: {text: '待发货', status: 'Success'},
-        2: {text: '已发货', status: 'Success'},
-        3: {text: '已完成', status: 'Success'},
-        4: {text: '已关闭', status: 'Error'},
-        5: {text: '无效订单', status: 'Error'},
+        0: { text: '待付款', status: 'Success' },
+        1: { text: '待发货', status: 'Success' },
+        2: { text: '已发货', status: 'Success' },
+        3: { text: '已完成', status: 'Success' },
+        4: { text: '已关闭', status: 'Error' },
+        5: { text: '无效订单', status: 'Error' },
       },
     },
     {
@@ -174,8 +178,8 @@ const OrderTableList: React.FC = () => {
       dataIndex: 'orderType',
       hideInTable: true,
       valueEnum: {
-        0: {text: '正常订单', status: 'Success'},
-        1: {text: '秒杀订单', status: 'Success'},
+        0: { text: '正常订单', status: 'Success' },
+        1: { text: '秒杀订单', status: 'Success' },
       },
     },
     {
@@ -186,7 +190,7 @@ const OrderTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -194,22 +198,55 @@ const OrderTableList: React.FC = () => {
           >
             查看订单
           </Button>
-          <Divider type="vertical"/>
-          {record.status === 0 && <Button style={{background: 'rgba(254,105,204,0.9)', color: 'white'}} icon={<DeleteOutlined/>} onClick={() => {
-            handleCloseOrderModelVisible(true);
-            setCurrentRow(record);
-          }}>关闭订单</Button>}
-          {record.status === 4 && <Button type="primary" danger icon={<DeleteOutlined/>} onClick={() => {
-            showDeleteConfirm(record);
-          }}>删除订单</Button>}
-          {record.status === 1 && <Button icon={<EditOutlined/>} onClick={() => {
-            handleDeliveryModelVisible(true);
-            setCurrentRow(record);
-          }} style={{background: '#c762ef', color: 'white'}}>订单发货</Button>}
-          {(record.status === 2 || record.status === 3) && <Button icon={<EditOutlined/>} style={{background: 'rgba(103,170,247,0.96)', color: 'white'}} onClick={() => {
-            handleOrderTrackingModalVisible(true);
-            setCurrentRow(record);
-          }}>订单跟踪</Button>}
+          <Divider type="vertical" />
+          {record.status === 0 && (
+            <Button
+              style={{ background: 'rgba(254,105,204,0.9)', color: 'white' }}
+              icon={<DeleteOutlined />}
+              onClick={() => {
+                handleCloseOrderModelVisible(true);
+                setCurrentRow(record);
+              }}
+            >
+              关闭订单
+            </Button>
+          )}
+          {record.status === 4 && (
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => {
+                showDeleteConfirm(record);
+              }}
+            >
+              删除订单
+            </Button>
+          )}
+          {record.status === 1 && (
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => {
+                handleDeliveryModelVisible(true);
+                setCurrentRow(record);
+              }}
+              style={{ background: '#c762ef', color: 'white' }}
+            >
+              订单发货
+            </Button>
+          )}
+          {(record.status === 2 || record.status === 3) && (
+            <Button
+              icon={<EditOutlined />}
+              style={{ background: 'rgba(103,170,247,0.96)', color: 'white' }}
+              onClick={() => {
+                handleOrderTrackingModalVisible(true);
+                setCurrentRow(record);
+              }}
+            >
+              订单跟踪
+            </Button>
+          )}
         </>
       ),
     },
@@ -230,9 +267,8 @@ const OrderTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => console.log(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
-
 
       <OrderDetailModel
         key={'OrderDetailModel'}
@@ -265,13 +301,13 @@ const OrderTableList: React.FC = () => {
           }
         }}
         updateModalVisible={updateModalVisible}
-        currentData={currentRow || {id: 0}}
+        currentData={currentRow || { id: 0 }}
       />
 
       <NoteOrderModel
         key={'CloseOrderModel'}
         onSubmit={async (value) => {
-          value.status = 4
+          value.status = 4;
           const success = await handleUpdate(value);
           if (success) {
             handleCloseOrderModelVisible(false);
@@ -288,13 +324,13 @@ const OrderTableList: React.FC = () => {
           }
         }}
         closeOrderModelVisible={closeOrderModelVisible}
-        currentData={currentRow || {id: 0}}
+        currentData={currentRow || { id: 0 }}
       />
 
       <DeliveryModel
         key={'DeliveryModel'}
         onSubmit={async (value) => {
-          value.status = 2
+          value.status = 2;
           const success = await handleUpdate(value);
           if (success) {
             handleDeliveryModelVisible(false);
@@ -311,7 +347,7 @@ const OrderTableList: React.FC = () => {
           }
         }}
         deliveryModelVisible={deliveryModelVisible}
-        currentData={currentRow || {id: 0}}
+        currentData={currentRow || { id: 0 }}
       />
 
       <OrderTrackingModel
@@ -323,21 +359,21 @@ const OrderTableList: React.FC = () => {
           }
         }}
         orderTrackingModalVisible={orderTrackingModalVisible}
-        currentData={currentRow || {id: 0}}
+        currentData={currentRow || { id: 0 }}
       />
       <Drawer
         width={600}
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<OrderListItem>
             column={2}
-            title={"订单详情"}
+            title={'订单详情'}
             request={async () => ({
               data: currentRow || {},
             })}

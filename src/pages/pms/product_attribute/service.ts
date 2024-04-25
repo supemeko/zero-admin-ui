@@ -1,12 +1,12 @@
-import {request} from 'umi';
-import type {AttributeListParams, AttributeListItem} from './data.d';
+import { request } from 'umi';
+import type { AttributeListParams, AttributeListItem } from './data.d';
 
 export async function queryAttribute(params: AttributeListParams) {
   if (params.type != null) {
-    params.type = Number(params.type)
+    params.type = Number(params.type);
   }
   if (params.productAttributeCategoryId != null) {
-    params.productAttributeCategoryId = Number(params.productAttributeCategoryId)
+    params.productAttributeCategoryId = Number(params.productAttributeCategoryId);
   }
   return request('/api/product/attribute/list', {
     method: 'POST',
@@ -42,4 +42,3 @@ export async function updateAttribute(params: AttributeListItem) {
     },
   });
 }
-

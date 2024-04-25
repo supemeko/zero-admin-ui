@@ -1,15 +1,14 @@
-import {Button, Card, Col, message, Modal, Row, Statistic} from 'antd';
-import React, {useEffect, useRef, useState} from 'react';
-import {FooterToolbar, PageContainer} from '@ant-design/pro-layout';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import { Button, Card, Col, message, Modal, Row, Statistic } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { FooterToolbar, PageContainer } from '@ant-design/pro-layout';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {TableListItem} from './data.d';
-import {StatisticsLoginLog} from "./data.d";
-import {queryLoginLog, removeLoginLog, statisticsLoginLog} from './service';
-import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import type { TableListItem } from './data.d';
+import { StatisticsLoginLog } from './data.d';
+import { queryLoginLog, removeLoginLog, statisticsLoginLog } from './service';
+import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
-const {confirm} = Modal;
-
+const { confirm } = Modal;
 
 /**
  *  删除节点
@@ -40,15 +39,14 @@ const LoginLogList: React.FC = () => {
   const showDeleteConfirm = (item: TableListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -87,7 +85,7 @@ const LoginLogList: React.FC = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -100,29 +98,28 @@ const LoginLogList: React.FC = () => {
   ];
 
   useEffect(() => {
-
     statisticsLoginLog().then((res) => {
       if (res.code === '000000') {
         setStatisticsLoginLogData({
-          dayLoginCount: res.data.dayLoginCount, monthLoginCount: res.data.monthLoginCount, weekLoginCount: res.data.weekLoginCount
-        })
+          dayLoginCount: res.data.dayLoginCount,
+          monthLoginCount: res.data.monthLoginCount,
+          weekLoginCount: res.data.weekLoginCount,
+        });
       } else {
         message.error(res.msg);
       }
     });
-
   }, []);
 
   return (
-    <PageContainer
-      title={false}>
+    <PageContainer title={false}>
       <Row gutter={8}>
         <Col span={8}>
           <Card bordered={false} hoverable>
             <Statistic
               title="当天用户登录数"
               value={statisticsLoginLogData?.dayLoginCount}
-              valueStyle={{color: '#cf1322'}}
+              valueStyle={{ color: '#cf1322' }}
             />
           </Card>
         </Col>
@@ -131,7 +128,7 @@ const LoginLogList: React.FC = () => {
             <Statistic
               title="当周用户登录数"
               value={statisticsLoginLogData?.weekLoginCount}
-              valueStyle={{color: '#3f8600'}}
+              valueStyle={{ color: '#3f8600' }}
             />
           </Card>
         </Col>
@@ -141,12 +138,12 @@ const LoginLogList: React.FC = () => {
             <Statistic
               title="当月用户登录数"
               value={statisticsLoginLogData?.monthLoginCount}
-              valueStyle={{color: 'blue'}}
+              valueStyle={{ color: 'blue' }}
             />
           </Card>
         </Col>
       </Row>
-      <Row style={{marginTop: 10}}>
+      <Row style={{ marginTop: 10 }}>
         <Col span={24}>
           <ProTable<TableListItem>
             headerTitle="登录日志列表"
@@ -160,7 +157,7 @@ const LoginLogList: React.FC = () => {
             rowSelection={{
               onChange: (_, selectedRows) => setSelectedRows(selectedRows),
             }}
-            pagination={{pageSize: 10}}
+            pagination={{ pageSize: 10 }}
           />
         </Col>
       </Row>
@@ -169,14 +166,14 @@ const LoginLogList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={async () => {
               await handleRemove(selectedRowsState);
               setSelectedRows([]);
@@ -187,7 +184,6 @@ const LoginLogList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
-
     </PageContainer>
   );
 };

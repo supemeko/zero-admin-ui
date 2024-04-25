@@ -209,7 +209,7 @@ const TableList: React.FC<{}> = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize:10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
@@ -231,7 +231,6 @@ const TableList: React.FC<{}> = () => {
         </FooterToolbar>
       )}
 
-
       <CreateAddressForm
         key={'CreateAddressForm'}
         onSubmit={async (value) => {
@@ -250,7 +249,6 @@ const TableList: React.FC<{}> = () => {
         }}
         createModalVisible={createModalVisible}
       />
-
 
       <UpdateAddressForm
         key={'UpdateAddressForm'}

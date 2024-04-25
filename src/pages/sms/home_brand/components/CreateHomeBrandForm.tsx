@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Modal} from 'antd';
-import type {BrandListItem} from '../data.d';
-import {queryBrand} from '@/pages/sms/home_brand/service';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import React, { useEffect, useRef, useState } from 'react';
+import { Modal } from 'antd';
+import type { BrandListItem } from '../data.d';
+import { queryBrand } from '@/pages/sms/home_brand/service';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
 export interface CreateFormProps {
@@ -15,7 +15,7 @@ const CreateHomeBrandForm: React.FC<CreateFormProps> = (props) => {
   const actionRef = useRef<ActionType>();
   const [selectedRowsState, setSelectedRows] = useState<BrandListItem[]>([]);
 
-  const {onSubmit, onCancel, createModalVisible} = props;
+  const { onSubmit, onCancel, createModalVisible } = props;
 
   useEffect(() => {
     if (!createModalVisible) {
@@ -49,7 +49,7 @@ const CreateHomeBrandForm: React.FC<CreateFormProps> = (props) => {
     },
   ];
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal
@@ -72,7 +72,7 @@ const CreateHomeBrandForm: React.FC<CreateFormProps> = (props) => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 6}}
+        pagination={{ pageSize: 6 }}
       />
     </Modal>
   );

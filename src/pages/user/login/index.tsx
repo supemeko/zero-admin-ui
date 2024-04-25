@@ -30,10 +30,10 @@ const LoginMessage: React.FC<{
 
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({
-    currentAuthority: "",
-    status: "",
-    token: "",
-    type: ""
+    currentAuthority: '',
+    status: '',
+    token: '',
+    type: '',
   });
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -55,7 +55,7 @@ const Login: React.FC = () => {
       // 登录
       const msg = await login({ ...values, type });
       if (msg.status === 'ok') {
-        localStorage.setItem("token", msg.token);
+        localStorage.setItem('token', msg.token);
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
@@ -254,7 +254,6 @@ const Login: React.FC = () => {
                   },
                 ]}
                 onGetCaptcha={async (phone) => {
-
                   message.success('获取验证码成功！验证码为：1234');
                 }}
               />

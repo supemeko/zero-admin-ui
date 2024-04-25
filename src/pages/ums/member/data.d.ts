@@ -1,16 +1,14 @@
 export interface MemberTableListItem {
   id: number;
-  status: number
+  status: number;
 }
 
 export interface AddressTableListItem {
   id: number;
-
 }
 
 export interface LoginLogListItem {
   id: number;
-
 }
 
 export interface MemberTableListPagination {
@@ -25,12 +23,11 @@ export interface MemberTableListData {
 }
 
 export interface MemberTableListParams {
-  status?: number
+  status?: number;
   pageSize?: number;
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }
 
 export interface AddressTableListParams {
@@ -39,7 +36,6 @@ export interface AddressTableListParams {
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }
 
 export interface LoginLogListParams {
@@ -48,5 +44,4 @@ export interface LoginLogListParams {
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

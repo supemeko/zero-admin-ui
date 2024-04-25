@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Cascader, Form, Input, InputNumber, message, Modal, Radio} from 'antd';
-import type {DeptListItem} from '../data.d';
-import {queryDept} from "@/pages/system/dept/service";
-import {tree} from "@/utils/utils";
+import React, { useEffect, useState } from 'react';
+import { Cascader, Form, Input, InputNumber, message, Modal, Radio } from 'antd';
+import type { DeptListItem } from '../data.d';
+import { queryDept } from '@/pages/system/dept/service';
+import { tree } from '@/utils/utils';
 
 export interface CreateFormProps {
   onCancel: () => void;
@@ -14,15 +14,15 @@ export interface CreateFormProps {
 const FormItem = Form.Item;
 
 const formLayout = {
-  labelCol: {span: 7},
-  wrapperCol: {span: 13},
+  labelCol: { span: 7 },
+  wrapperCol: { span: 13 },
 };
 
 const CreateDeptForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
   const [deptListItem, setDeptListItem] = useState<DeptListItem[]>([]);
 
-  const {onSubmit, onCancel, createModalVisible} = props;
+  const { onSubmit, onCancel, createModalVisible } = props;
 
   useEffect(() => {
     if (form && !createModalVisible) {
@@ -42,7 +42,7 @@ const CreateDeptForm: React.FC<CreateFormProps> = (props) => {
           tree1.unshift({
             value: 0,
             label: '无上级机构',
-          })
+          });
           setDeptListItem(tree1);
         } else {
           message.error(res.msg);
@@ -73,20 +73,35 @@ const CreateDeptForm: React.FC<CreateFormProps> = (props) => {
   const renderContent = () => {
     return (
       <>
-        <FormItem name="name" label="机构名称" rules={[{required: true, message: '请输入机构名称'}]}>
-          <Input id="update-name" placeholder={'请输入机构名称'}/>
+        <FormItem
+          name="name"
+          label="机构名称"
+          rules={[{ required: true, message: '请输入机构名称' }]}
+        >
+          <Input id="update-name" placeholder={'请输入机构名称'} />
         </FormItem>
-        <FormItem name="parentIds" label="机构上级" initialValue={[0]} rules={[{required: true, message: '请选择上级!'}]}>
-          <Cascader
-            defaultValue={[0]}
-            options={deptListItem}
-            placeholder="请选择上级"
-          />
+        <FormItem
+          name="parentIds"
+          label="机构上级"
+          initialValue={[0]}
+          rules={[{ required: true, message: '请选择上级!' }]}
+        >
+          <Cascader defaultValue={[0]} options={deptListItem} placeholder="请选择上级" />
         </FormItem>
-        <FormItem name="orderNum" label="排序" initialValue={0} rules={[{required: true, message: '请输入排序'}]}>
-          <InputNumber placeholder={'请输入排序'} style={{width: 255}}/>
+        <FormItem
+          name="orderNum"
+          label="排序"
+          initialValue={0}
+          rules={[{ required: true, message: '请输入排序' }]}
+        >
+          <InputNumber placeholder={'请输入排序'} style={{ width: 255 }} />
         </FormItem>
-        <FormItem name="delFlag" label="状态" rules={[{required: true, message: '请求选择状态'}]} initialValue={1}>
+        <FormItem
+          name="delFlag"
+          label="状态"
+          rules={[{ required: true, message: '请求选择状态' }]}
+          initialValue={1}
+        >
           <Radio.Group id="delFlag">
             <Radio value={0}>禁用</Radio>
             <Radio value={1}>正常</Radio>
@@ -96,16 +111,10 @@ const CreateDeptForm: React.FC<CreateFormProps> = (props) => {
     );
   };
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
-    <Modal
-      forceRender
-      destroyOnClose
-      title="新建机构"
-      open={createModalVisible}
-      {...modalFooter}
-    >
+    <Modal forceRender destroyOnClose title="新建机构" open={createModalVisible} {...modalFooter}>
       <Form {...formLayout} form={form} onFinish={handleFinish}>
         {renderContent()}
       </Form>

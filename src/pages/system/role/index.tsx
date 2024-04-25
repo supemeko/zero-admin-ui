@@ -1,23 +1,22 @@
-import {PlusOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
-import ProDescriptions, {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProDescriptions, { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import MenuForm from './components/MenuForm';
 import CreateRoleForm from './components/CreateRoleForm';
 import UpdateRoleForm from './components/UpdateRoleForm';
-import type {RoleListItem} from './data.d';
-import {
-  queryRole,
-  updateRule,
-  addRole,
-  removeRole,
-  updateRoleMenu,
-} from './service';
+import type { RoleListItem } from './data.d';
+import { queryRole, updateRule, addRole, removeRole, updateRoleMenu } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -26,7 +25,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: RoleListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addRole({...fields});
+    await addRole({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -55,7 +54,6 @@ const handleUpdate = async (fields: RoleListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -91,15 +89,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: RoleListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -113,10 +110,16 @@ const TableList: React.FC = () => {
       title: '角色名称',
       dataIndex: 'name',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -129,8 +132,8 @@ const TableList: React.FC = () => {
       title: '状态',
       dataIndex: 'status',
       valueEnum: {
-        1: {text: '启用', status: 'Success'},
-        0: {text: '禁用', status: 'Error'},
+        1: { text: '启用', status: 'Success' },
+        0: { text: '禁用', status: 'Error' },
       },
     },
     {
@@ -165,7 +168,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -173,10 +176,10 @@ const TableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateMenuModalVisible(true);
               setMenuStepFormValues(record);
@@ -184,11 +187,11 @@ const TableList: React.FC = () => {
           >
             分配菜单
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -211,7 +214,7 @@ const TableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button key={'new'} type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建角色
+            <PlusOutlined /> 新建角色
           </Button>,
         ]}
         request={queryRole}
@@ -219,13 +222,13 @@ const TableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -308,14 +311,14 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<RoleListItem>
             column={2}
-            title={"角色详情"}
+            title={'角色详情'}
             request={async () => ({
               data: currentRow || {},
             })}

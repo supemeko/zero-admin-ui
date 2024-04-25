@@ -36,4 +36,3 @@ export async function updateCategory(params: CategoryListItem) {
     },
   });
 }
-

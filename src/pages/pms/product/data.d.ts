@@ -3,9 +3,9 @@ export interface ProductListItem {
 }
 
 export interface ProductParams {
-  productCategoryIdArray?: number[]
-  productCategoryIdArrayStr?: string
-  serviceIdsArray?: number[]
+  productCategoryIdArray?: number[];
+  productCategoryIdArrayStr?: string;
+  serviceIdsArray?: number[];
   id?: number;
   brandId?: number;
   productCategoryId?: number;
@@ -56,7 +56,6 @@ export interface PrefrenceAreaItem {
   id: number;
   name: string;
   subTitle: string;
-
 }
 
 export interface ProductListPagination {
@@ -71,19 +70,15 @@ export interface ProductListData {
 }
 
 export interface ProductListParams {
-
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }
 
 export interface PrefrenceAreaParams {
-
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

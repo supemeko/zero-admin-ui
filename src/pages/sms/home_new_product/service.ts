@@ -1,6 +1,6 @@
 import { request } from 'umi';
-import {HomeNewProductListParams, HomeNewProductListItem} from './data.d';
-import {ProductListParams} from "@/pages/pms/product/data";
+import { HomeNewProductListParams, HomeNewProductListItem } from './data.d';
+import { ProductListParams } from '@/pages/pms/product/data';
 
 export async function queryHomeNewProduct(params: HomeNewProductListParams) {
   if (params.recommendStatus != null) {

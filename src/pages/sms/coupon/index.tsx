@@ -4,19 +4,19 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateCouponForm from './components/CreateCouponForm';
 import UpdateCouponForm from './components/UpdateCouponForm';
-import type {CouponListItem} from './data.d';
-import {queryCoupon, updateCoupon, addCoupon, removeCoupon} from './service';
+import type { CouponListItem } from './data.d';
+import { queryCoupon, updateCoupon, addCoupon, removeCoupon } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -87,15 +87,14 @@ const CouponTableList: React.FC = () => {
   const showDeleteConfirm = (item: CouponListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then((r) => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -125,28 +124,28 @@ const CouponTableList: React.FC = () => {
       title: '优惠券类型',
       dataIndex: 'type',
       valueEnum: {
-        0: {text: '全场赠券', status: 'Error'},
-        1: {text: '会员赠券', status: 'Success'},
-        2: {text: '购物赠券', status: 'Success'},
-        3: {text: '注册赠券', status: 'Success'},
+        0: { text: '全场赠券', status: 'Error' },
+        1: { text: '会员赠券', status: 'Success' },
+        2: { text: '购物赠券', status: 'Success' },
+        3: { text: '注册赠券', status: 'Success' },
       },
     },
     {
       title: '使用平台',
       dataIndex: 'platform',
       valueEnum: {
-        0: {text: '全部', status: 'Error'},
-        1: {text: '移动', status: 'Success'},
-        2: {text: 'PC', status: 'Success'},
+        0: { text: '全部', status: 'Error' },
+        1: { text: '移动', status: 'Success' },
+        2: { text: 'PC', status: 'Success' },
       },
     },
     {
       title: '使用类型',
       dataIndex: 'useType',
       valueEnum: {
-        0: {text: '全场通用', status: 'Error'},
-        1: {text: '指定分类', status: 'Success'},
-        2: {text: '指定商品', status: 'Success'},
+        0: { text: '全场通用', status: 'Error' },
+        1: { text: '指定分类', status: 'Success' },
+        2: { text: '指定商品', status: 'Success' },
       },
     },
     {
@@ -213,7 +212,7 @@ const CouponTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -225,7 +224,7 @@ const CouponTableList: React.FC = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -248,7 +247,7 @@ const CouponTableList: React.FC = () => {
         }}
         toolBarRender={() => [
           <Button type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建优惠券
+            <PlusOutlined /> 新建优惠券
           </Button>,
         ]}
         request={queryCoupon}
@@ -256,7 +255,7 @@ const CouponTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar

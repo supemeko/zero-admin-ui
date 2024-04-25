@@ -1,6 +1,5 @@
 export interface ReturnReasonListItem {
   id: number;
-
 }
 
 export interface ReturnReasonListPagination {
@@ -20,5 +19,4 @@ export interface ReturnReasonListParams {
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

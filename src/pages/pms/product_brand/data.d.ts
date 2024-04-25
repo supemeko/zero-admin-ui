@@ -21,5 +21,4 @@ export interface BrandListParams {
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

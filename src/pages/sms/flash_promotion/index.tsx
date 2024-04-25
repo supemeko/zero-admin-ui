@@ -1,14 +1,19 @@
-import {PlusOutlined, ExclamationCircleOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
 import { Button, Divider, message, Drawer, Modal } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateFlashForm from './components/CreateFlashForm';
 import UpdateFlashForm from './components/UpdateFlashForm';
-import type {FlashPromotionListItem} from './data.d';
+import type { FlashPromotionListItem } from './data.d';
 import {
   queryFlashPromotion,
   updateFlashPromotion,
@@ -54,7 +59,6 @@ const handleUpdate = async (fields: FlashPromotionListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -109,26 +113,34 @@ const FlashPromotionList: React.FC = () => {
       title: '活动标题',
       dataIndex: 'title',
       render: (dom, entity) => {
-        return <a onClick={() => {setCurrentRow(entity);
-          setShowDetail(true);}}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
       title: '开始日期',
       dataIndex: 'startDate',
-      valueType: 'date'
+      valueType: 'date',
     },
     {
       title: '结束日期',
       dataIndex: 'endDate',
-      valueType: 'date'
+      valueType: 'date',
     },
     {
       title: '上下线状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '禁用', status: 'Error'},
-        1: {text: '正常', status: 'Success'},
+        0: { text: '禁用', status: 'Error' },
+        1: { text: '正常', status: 'Success' },
       },
     },
     {
@@ -144,7 +156,7 @@ const FlashPromotionList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -156,7 +168,7 @@ const FlashPromotionList: React.FC = () => {
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -244,12 +256,12 @@ const FlashPromotionList: React.FC = () => {
         }}
         onCancel={() => {
           handleUpdateModalVisible(false);
-          if (!showDetail){
+          if (!showDetail) {
             setCurrentRow(undefined);
           }
         }}
         updateModalVisible={updateModalVisible}
-        values={currentRow||{}}
+        values={currentRow || {}}
       />
 
       <Drawer
@@ -257,7 +269,7 @@ const FlashPromotionList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >

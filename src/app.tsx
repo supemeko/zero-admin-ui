@@ -6,7 +6,7 @@ import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import defaultSettings from '../config/defaultSettings';
-import { tree } from "@/utils/utils";
+import { tree } from '@/utils/utils';
 import {
   SmileOutlined,
   HeartOutlined,
@@ -17,18 +17,19 @@ import {
   DollarCircleOutlined,
   AlertOutlined,
 } from '@ant-design/icons';
-import { RequestConfig, } from "@@/plugin-request/request";
+import { RequestConfig } from '@@/plugin-request/request';
 import { RequestInterceptor, RequestOptionsInit } from 'umi-request';
-import { notification } from "antd";
+import { notification } from 'antd';
 
-type IconMapKey = "SmileOutlined" |
-  "HeartOutlined" |
-  "SettingOutlined" |
-  "DeleteOutlined" |
-  "FrownOutlined" |
-  "GiftOutlined" |
-  "DollarCircleOutlined" |
-  "AlertOutlined";
+type IconMapKey =
+  | 'SmileOutlined'
+  | 'HeartOutlined'
+  | 'SettingOutlined'
+  | 'DeleteOutlined'
+  | 'FrownOutlined'
+  | 'GiftOutlined'
+  | 'DollarCircleOutlined'
+  | 'AlertOutlined';
 
 const IconMap = {
   SmileOutlined: <SmileOutlined />,
@@ -40,7 +41,6 @@ const IconMap = {
   DollarCircleOutlined: <DollarCircleOutlined />,
   AlertOutlined: <AlertOutlined />,
 };
-
 
 const loginPath = '/user/login';
 
@@ -100,7 +100,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       }
     },
     menu: {
-      locale: false
+      locale: false,
     },
     menuHeaderRender: undefined,
     // 自定义 403 页面
@@ -191,7 +191,6 @@ const errorHandler = (error: any) => {
   }
   throw error;
 };
-
 
 const addToken: RequestInterceptor = (url: string, options: RequestOptionsInit) => {
   options.headers = {

@@ -1,6 +1,5 @@
 export interface CategoryListItem {
   id: number;
-
 }
 
 export interface CategoryListPagination {
@@ -15,11 +14,9 @@ export interface CategoryListData {
 }
 
 export interface CategoryListParams {
-
   parentId?: number;
   pageSize?: number;
   currentPage?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

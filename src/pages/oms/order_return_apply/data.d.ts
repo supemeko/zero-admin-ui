@@ -39,7 +39,6 @@ export interface CompanyAddressListItem {
   city?: null | string;
   region?: string;
   detailAddress?: string;
-
 }
 
 export interface ReturnApplyListPagination {
@@ -54,11 +53,9 @@ export interface ReturnApplyListData {
 }
 
 export interface ReturnApplyListParams {
-
   status?: number;
   pageSize?: number;
   current?: number;
   filter?: { [key: string]: any[] };
   sorter?: { [key: string]: any };
-
 }

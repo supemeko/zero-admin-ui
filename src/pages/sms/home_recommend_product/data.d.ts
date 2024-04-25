@@ -5,7 +5,6 @@ export interface RecommendProductListItem {
 
 export interface ProductListItem {
   id: number;
-
 }
 
 export interface RecommendProductListPagination {

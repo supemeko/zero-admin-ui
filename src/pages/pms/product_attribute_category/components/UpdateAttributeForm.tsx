@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import {Form, Input, Modal} from 'antd';
-import type {AttributeCategoryListItem} from '../data.d';
+import React, { useEffect } from 'react';
+import { Form, Input, Modal } from 'antd';
+import type { AttributeCategoryListItem } from '../data.d';
 
 export interface UpdateFormProps {
   onCancel: () => void;
@@ -12,14 +12,14 @@ export interface UpdateFormProps {
 const FormItem = Form.Item;
 
 const formLayout = {
-  labelCol: {span: 7},
-  wrapperCol: {span: 13},
+  labelCol: { span: 7 },
+  wrapperCol: { span: 13 },
 };
 
 const UpdateAttributeForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const {onSubmit, onCancel, updateModalVisible, values} = props;
+  const { onSubmit, onCancel, updateModalVisible, values } = props;
 
   useEffect(() => {
     if (form && !updateModalVisible) {
@@ -50,22 +50,22 @@ const UpdateAttributeForm: React.FC<UpdateFormProps> = (props) => {
     return (
       <>
         <FormItem name="id" label="主键" hidden>
-          <Input id="update-id" placeholder="请输入主键"/>
+          <Input id="update-id" placeholder="请输入主键" />
         </FormItem>
         <FormItem name="attributeCount" hidden>
-          <Input/>
+          <Input />
         </FormItem>
         <FormItem name="paramCount" hidden>
-          <Input/>
+          <Input />
         </FormItem>
         <FormItem name="name" label="分类名称">
-          <Input id="update-name" placeholder={'请输入分类名称'}/>
+          <Input id="update-name" placeholder={'请输入分类名称'} />
         </FormItem>
       </>
     );
   };
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal

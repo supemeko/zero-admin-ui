@@ -1,16 +1,16 @@
 import { request } from 'umi';
-import {CouponListParams, CouponListItem} from './data.d';
-import moment from "moment/moment";
+import { CouponListParams, CouponListItem } from './data.d';
+import moment from 'moment/moment';
 
 export async function queryCoupon(params: CouponListParams) {
   if (params.type != null) {
-    params.type = Number(params.type)
+    params.type = Number(params.type);
   }
   if (params.platform != null) {
-    params.platform = Number(params.platform)
+    params.platform = Number(params.platform);
   }
   if (params.useType != null) {
-    params.useType = Number(params.useType)
+    params.useType = Number(params.useType);
   }
   return request('/api/sms/coupon/list', {
     method: 'POST',
@@ -30,8 +30,8 @@ export async function removeCoupon(params: { ids: number[] }) {
 }
 
 export async function addCoupon(params: CouponListItem) {
-  params.amount = Number(params.amount)
-  params.minPoint = Number(params.minPoint)
+  params.amount = Number(params.amount);
+  params.minPoint = Number(params.minPoint);
   params.startTime = moment(params.startTime).format('YYYY-MM-DD HH:mm:ss');
   params.endTime = moment(params.endTime).format('YYYY-MM-DD HH:mm:ss');
   params.enableTime = moment(params.enableTime).format('YYYY-MM-DD HH:mm:ss');
@@ -44,8 +44,8 @@ export async function addCoupon(params: CouponListItem) {
 }
 
 export async function updateCoupon(params: CouponListItem) {
-  params.amount = Number(params.amount)
-  params.minPoint = Number(params.minPoint)
+  params.amount = Number(params.amount);
+  params.minPoint = Number(params.minPoint);
   return request('/api/sms/coupon/update', {
     method: 'POST',
     data: {

@@ -1,17 +1,22 @@
-import {PlusOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
-import ProDescriptions, {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProDescriptions, { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateDeptForm from './components/CreateDeptForm';
 import UpdateDeptForm from './components/UpdateDeptForm';
-import type {DeptListItem} from './data.d';
-import {queryDept, updateDept, addDept, removeDept} from './service';
-import {tree} from '@/utils/utils';
+import type { DeptListItem } from './data.d';
+import { queryDept, updateDept, addDept, removeDept } from './service';
+import { tree } from '@/utils/utils';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -21,7 +26,7 @@ const handleAdd = async (fields: DeptListItem) => {
   const hide = message.loading('正在添加');
   try {
     fields.orderNum = Number(fields.orderNum);
-    await addDept({...fields});
+    await addDept({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -51,7 +56,6 @@ const handleUpdate = async (fields: DeptListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -85,15 +89,14 @@ const TableList: React.FC = () => {
   const showDeleteConfirm = (item: DeptListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -107,10 +110,16 @@ const TableList: React.FC = () => {
       title: '机构名称',
       dataIndex: 'name',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -127,8 +136,8 @@ const TableList: React.FC = () => {
       title: '状态',
       dataIndex: 'delFlag',
       valueEnum: {
-        1: {text: '正常', status: 'Success'},
-        0: {text: '禁用', status: 'Error'},
+        1: { text: '正常', status: 'Success' },
+        0: { text: '禁用', status: 'Error' },
       },
     },
     {
@@ -161,7 +170,7 @@ const TableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -169,11 +178,11 @@ const TableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -194,7 +203,7 @@ const TableList: React.FC = () => {
         search={false}
         toolBarRender={() => [
           <Button type="primary" key="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建机构
+            <PlusOutlined /> 新建机构
           </Button>,
         ]}
         request={queryDept}
@@ -209,7 +218,7 @@ const TableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -274,14 +283,14 @@ const TableList: React.FC = () => {
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
         {currentRow?.id && (
           <ProDescriptions<DeptListItem>
             column={2}
-            title={"部门详情"}
+            title={'部门详情'}
             request={async () => ({
               data: currentRow || {},
             })}

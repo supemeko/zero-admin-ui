@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from 'react';
-import {message, Modal} from 'antd';
-import {queryLoginLog} from '../service';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import React, { useEffect, useRef } from 'react';
+import { message, Modal } from 'antd';
+import { queryLoginLog } from '../service';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type {LoginLogListItem} from "../data.d";
+import type { LoginLogListItem } from '../data.d';
 
 export interface CreateFormProps {
   onCancel: () => void;
@@ -15,7 +15,7 @@ export interface CreateFormProps {
 const MemberLogModal: React.FC<CreateFormProps> = (props) => {
   const actionRef = useRef<ActionType>();
 
-  const {onSubmit, onCancel, logModalVisible, memberId} = props;
+  const { onSubmit, onCancel, logModalVisible, memberId } = props;
 
   useEffect(() => {
     if (logModalVisible) {
@@ -59,15 +59,15 @@ const MemberLogModal: React.FC<CreateFormProps> = (props) => {
       title: '登录类型',
       dataIndex: 'loginType',
       valueEnum: {
-        0: {text: 'PC', status: 'Error'},
-        1: {text: 'android', status: 'Success'},
-        2: {text: 'ios', status: 'Success'},
-        3: {text: '小程序', status: 'Success'},
+        0: { text: 'PC', status: 'Error' },
+        1: { text: 'android', status: 'Success' },
+        2: { text: 'ios', status: 'Success' },
+        3: { text: '小程序', status: 'Success' },
       },
     },
   ];
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal
@@ -88,7 +88,7 @@ const MemberLogModal: React.FC<CreateFormProps> = (props) => {
             ...params,
             memberId,
           }).then((res) => {
-            console.log(res)
+            console.log(res);
             if (res.code === '000000') {
               return {
                 data: res.data,
@@ -102,7 +102,7 @@ const MemberLogModal: React.FC<CreateFormProps> = (props) => {
           });
         }}
         columns={columns}
-        pagination={{pageSize: 6}}
+        pagination={{ pageSize: 6 }}
       />
     </Modal>
   );

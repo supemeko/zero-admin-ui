@@ -1,8 +1,8 @@
-import React, {useEffect, useRef} from 'react';
-import {message, Modal} from 'antd';
-import type {AddressTableListItem} from '../data.d';
-import {queryAddress} from '../service';
-import type {ActionType, ProColumns} from '@ant-design/pro-table';
+import React, { useEffect, useRef } from 'react';
+import { message, Modal } from 'antd';
+import type { AddressTableListItem } from '../data.d';
+import { queryAddress } from '../service';
+import type { ActionType, ProColumns } from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 
 export interface CreateFormProps {
@@ -15,7 +15,7 @@ export interface CreateFormProps {
 const MemberAddressModal: React.FC<CreateFormProps> = (props) => {
   const actionRef = useRef<ActionType>();
 
-  const {onSubmit, onCancel, addressModalVisible, memberId} = props;
+  const { onSubmit, onCancel, addressModalVisible, memberId } = props;
 
   useEffect(() => {
     if (addressModalVisible) {
@@ -55,8 +55,8 @@ const MemberAddressModal: React.FC<CreateFormProps> = (props) => {
       dataIndex: 'defaultStatus',
       hideInSearch: true,
       valueEnum: {
-        0: {text: '否', status: 'Error'},
-        1: {text: '是', status: 'Success'},
+        0: { text: '否', status: 'Error' },
+        1: { text: '是', status: 'Success' },
       },
     },
     {
@@ -86,7 +86,7 @@ const MemberAddressModal: React.FC<CreateFormProps> = (props) => {
     },
   ];
 
-  const modalFooter = {okText: '保存', onOk: handleSubmit, onCancel};
+  const modalFooter = { okText: '保存', onOk: handleSubmit, onCancel };
 
   return (
     <Modal
@@ -120,7 +120,7 @@ const MemberAddressModal: React.FC<CreateFormProps> = (props) => {
           });
         }}
         columns={columns}
-        pagination={{pageSize: 6}}
+        pagination={{ pageSize: 6 }}
       />
     </Modal>
   );

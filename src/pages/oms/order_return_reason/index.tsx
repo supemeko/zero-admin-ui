@@ -1,14 +1,19 @@
-import {PlusOutlined, ExclamationCircleOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
-import {Button, Divider, message, Drawer, Modal} from 'antd';
-import React, {useState, useRef} from 'react';
-import {PageContainer, FooterToolbar} from '@ant-design/pro-layout';
+import {
+  PlusOutlined,
+  ExclamationCircleOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
+import { Button, Divider, message, Drawer, Modal } from 'antd';
+import React, { useState, useRef } from 'react';
+import { PageContainer, FooterToolbar } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
-import type {ProColumns, ActionType} from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import ProDescriptions from '@ant-design/pro-descriptions';
-import type {ProDescriptionsItemProps} from '@ant-design/pro-descriptions';
+import type { ProDescriptionsItemProps } from '@ant-design/pro-descriptions';
 import CreateReasonForm from './components/CreateReasonForm';
 import UpdateReasonForm from './components/UpdateReasonForm';
-import type {ReturnReasonListItem} from './data.d';
+import type { ReturnReasonListItem } from './data.d';
 import {
   queryReturnReasonList,
   updateReturnReason,
@@ -16,7 +21,7 @@ import {
   removeReturnReason,
 } from './service';
 
-const {confirm} = Modal;
+const { confirm } = Modal;
 
 /**
  * 添加节点
@@ -25,7 +30,7 @@ const {confirm} = Modal;
 const handleAdd = async (fields: ReturnReasonListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addReturnReason({...fields});
+    await addReturnReason({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -54,7 +59,6 @@ const handleUpdate = async (fields: ReturnReasonListItem) => {
     return false;
   }
 };
-
 
 /**
  *  删除节点
@@ -88,15 +92,14 @@ const ReasonTableList: React.FC = () => {
   const showDeleteConfirm = (item: ReturnReasonListItem) => {
     confirm({
       title: '是否删除记录?',
-      icon: <ExclamationCircleOutlined/>,
+      icon: <ExclamationCircleOutlined />,
       content: '删除的记录不能恢复,请确认!',
       onOk() {
         handleRemove([item]).then(() => {
           actionRef.current?.reloadAndRest?.();
         });
       },
-      onCancel() {
-      },
+      onCancel() {},
     });
   };
 
@@ -110,10 +113,16 @@ const ReasonTableList: React.FC = () => {
       title: '退货类型',
       dataIndex: 'name',
       render: (dom, entity) => {
-        return <a onClick={() => {
-          setCurrentRow(entity);
-          setShowDetail(true);
-        }}>{dom}</a>;
+        return (
+          <a
+            onClick={() => {
+              setCurrentRow(entity);
+              setShowDetail(true);
+            }}
+          >
+            {dom}
+          </a>
+        );
       },
     },
     {
@@ -125,8 +134,8 @@ const ReasonTableList: React.FC = () => {
       title: '状态',
       dataIndex: 'status',
       valueEnum: {
-        0: {text: '禁用', status: 'Error'},
-        1: {text: '正常', status: 'Success'},
+        0: { text: '禁用', status: 'Error' },
+        1: { text: '正常', status: 'Success' },
       },
     },
     {
@@ -143,7 +152,7 @@ const ReasonTableList: React.FC = () => {
         <>
           <Button
             type="primary"
-            icon={<EditOutlined/>}
+            icon={<EditOutlined />}
             onClick={() => {
               handleUpdateModalVisible(true);
               setCurrentRow(record);
@@ -151,11 +160,11 @@ const ReasonTableList: React.FC = () => {
           >
             编辑
           </Button>
-          <Divider type="vertical"/>
+          <Divider type="vertical" />
           <Button
             type="primary"
             danger
-            icon={<DeleteOutlined/>}
+            icon={<DeleteOutlined />}
             onClick={() => {
               showDeleteConfirm(record);
             }}
@@ -178,8 +187,8 @@ const ReasonTableList: React.FC = () => {
           labelWidth: 120,
         }}
         toolBarRender={() => [
-          <Button key={"reasonAdd"} type="primary" onClick={() => handleModalVisible(true)}>
-            <PlusOutlined/> 新建原因
+          <Button key={'reasonAdd'} type="primary" onClick={() => handleModalVisible(true)}>
+            <PlusOutlined /> 新建原因
           </Button>,
         ]}
         request={queryReturnReasonList}
@@ -187,13 +196,13 @@ const ReasonTableList: React.FC = () => {
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
         }}
-        pagination={{pageSize: 10}}
+        pagination={{ pageSize: 10 }}
       />
       {selectedRowsState?.length > 0 && (
         <FooterToolbar
           extra={
             <div>
-              已选择 <a style={{fontWeight: 600}}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> 项&nbsp;&nbsp;
             </div>
           }
         >
@@ -252,13 +261,12 @@ const ReasonTableList: React.FC = () => {
         values={currentRow || {}}
       />
 
-
       <Drawer
         width={600}
         visible={showDetail}
         onClose={() => {
           setCurrentRow(undefined);
-          setShowDetail(false)
+          setShowDetail(false);
         }}
         closable={false}
       >
