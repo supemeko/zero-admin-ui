@@ -225,8 +225,10 @@ export const request: RequestConfig = {
   requestInterceptors: [addToken],
   errorConfig: {
     adaptor: (res, ctx) => {
+      // success为false时
       // 函数返回后，umi会抛出一个RequestError
       // 幸运的话，会被RequestConfig.errorHandler接收
+      // suceess为true时，什么都不会发生
       return {
         success: res.code == '000000',
         data: res,
