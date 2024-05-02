@@ -6,11 +6,13 @@ export async function queryUserList(params: UserListParams) {
   if (params.status != null) {
     params.status = Number(params.status);
   }
+
   return request('/api/sys/user/list', {
     method: 'POST',
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

@@ -194,16 +194,36 @@ const errorHandler = (error: any) => {
 
   //RequestConfig.errorConfig.adaptor定义的业务异常
   if (name == 'BizError' && info && info.errorMessage && info.errorCode) {
+    const url = info?.url;
+    const method = info?.method;
+    const req_info = (method ? method : '请求接口') + ' ' + url;
+    const req_info_display = url ? req_info : null;
     notification.error({
-      description: `响应码:【${info.errorCode}】，错误提示: 【${info.errorMessage}】`,
-      message: '服务端响应异常',
+      message: '后端处理异常',
+      description: (
+        <>
+          <p>
+            {req_info_display && (
+              <>
+                {req_info_display}
+                <br />
+              </>
+            )}
+            后端应答码 [{info.errorCode}]<br />
+            后端应答信息: 【{info.errorMessage}】
+          </p>
+        </>
+      ),
     });
-    throw error;
+    console.error(
+      `后端处理异常 Request(${req_info_display}) ErrorCode(${info.errorCode}) ErrorMsg(${info.errorMessage})`,
+    );
+    return;
   }
 
   notification.error({
-    description: `后端未按要求响应或者前端处理不正确`,
-    message: '无法处理后端响应的结果',
+    description: `后端未按要求应答或后端按要求应答而前端无法处理`,
+    message: '前端无法处理后端应答',
   });
 
   throw error;
@@ -235,6 +255,8 @@ export const request: RequestConfig = {
         errorCode: res.code,
         errorMessage: res.message,
         showType: ErrorShowType.NOTIFICATION,
+        url: ctx?.req?.url,
+        method: ctx?.req?.options?.method,
       };
     },
   },

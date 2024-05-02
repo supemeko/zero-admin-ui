@@ -16,7 +16,7 @@ import UpdateUserForm from './components/UpdateUserForm';
 import type { UserListItem } from './data.d';
 import { queryUserList, updateUser, addUser, removeUser } from './service';
 
-const { confirm } = Modal;
+const { confirm, error } = Modal;
 
 /**
  * 添加节点
@@ -231,7 +231,21 @@ const UserList: React.FC = () => {
             <PlusOutlined /> 新建用户
           </Button>,
         ]}
-        request={queryUserList}
+        request={async (params) => {
+          const res = await queryUserList(params);
+          if (!res.success) {
+            error({
+              title: '后端处理异常',
+              content: (
+                <p>
+                  后端应答码 [{res.code}]<br />
+                  后端应答信息 【{res.message}】
+                </p>
+              ),
+            });
+          }
+          return res;
+        }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => setSelectedRows(selectedRows),
