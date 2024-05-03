@@ -45,7 +45,7 @@ const UpdateDeptForm: React.FC<UpdateFormProps> = (props) => {
           });
           setDeptListItem(tree1);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

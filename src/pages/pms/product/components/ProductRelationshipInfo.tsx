@@ -39,7 +39,7 @@ const ProductRelationshipInfo: React.FC<BaseInfoProps> = (props) => {
           // @ts-ignore
           setSubjectTargetKeys(props.currentData?.subjectProductRelationList || []);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
 
@@ -55,7 +55,7 @@ const ProductRelationshipInfo: React.FC<BaseInfoProps> = (props) => {
           // @ts-ignore
           setPrefrenceAreaTargetKeys(props.currentData?.prefrenceAreaProductRelationList || []);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

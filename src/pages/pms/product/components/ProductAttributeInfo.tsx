@@ -53,7 +53,7 @@ const ProductAttributeInfo: React.FC<BaseInfoProps> = (props) => {
 
           setAttributeCategoryListItem(map);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }
@@ -75,7 +75,7 @@ const ProductAttributeInfo: React.FC<BaseInfoProps> = (props) => {
           setAttributeListItem1([]);
         }
       } else {
-        message.error(res.msg);
+        message.error(res.message);
       }
     });
   };

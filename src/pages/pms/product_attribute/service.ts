@@ -13,6 +13,7 @@ export async function queryAttribute(params: AttributeListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

@@ -48,7 +48,7 @@ const UpdateCategoryForm: React.FC<UpdateFormProps> = (props) => {
           });
           setParentIdMap(map);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

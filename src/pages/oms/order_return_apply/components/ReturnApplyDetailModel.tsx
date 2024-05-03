@@ -35,7 +35,7 @@ const ReturnApplyDetailModel: React.FC<UpdateFormProps> = (props) => {
         if (res.code === '000000') {
           setCompanyAddressListItem(res.data);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

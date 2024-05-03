@@ -258,7 +258,7 @@ const TableList: React.FC = () => {
             // @ts-ignore
             productAttributeCategoryId: location.query.productAttributeCategoryId,
           }).then((res) => {
-            console.log(res);
+            console.log(`{res:${res}}`);
             if (res.code === '000000') {
               return {
                 data: res.data,
@@ -267,7 +267,7 @@ const TableList: React.FC = () => {
                 current: res.current,
               };
             } else {
-              return message.error(res.msg);
+              return message.error(res.message);
             }
           });
         }}

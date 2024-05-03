@@ -49,7 +49,7 @@ const UpdateMenuForm: React.FC<UpdateFormProps> = (props) => {
           });
           setTreeData(tree1);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

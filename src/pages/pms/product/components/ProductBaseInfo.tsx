@@ -22,7 +22,7 @@ const ProductBaseInfo: React.FC<BaseInfoProps> = (props) => {
         if (res.code === '000000') {
           setBrandListItem(res.data);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
 
@@ -38,7 +38,7 @@ const ProductBaseInfo: React.FC<BaseInfoProps> = (props) => {
 
           setCategoryListItem(tree(map, 0, 'parentId'));
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

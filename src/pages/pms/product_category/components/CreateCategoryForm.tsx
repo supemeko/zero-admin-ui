@@ -40,7 +40,7 @@ const CreateCategoryForm: React.FC<CreateFormProps> = (props) => {
         });
         setParentIdMap(map);
       } else {
-        message.error(res.msg);
+        message.error(res.message);
       }
     });
   }, [props.createModalVisible]);

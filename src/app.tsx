@@ -172,7 +172,7 @@ const codeMessage = {
  * 异常处理程序
  */
 const errorHandler = (error: any) => {
-  const { response, name, info } = error;
+  const { response } = error;
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -190,35 +190,6 @@ const errorHandler = (error: any) => {
       message: '网络异常',
     });
     throw error;
-  }
-
-  //RequestConfig.errorConfig.adaptor定义的业务异常
-  if (name == 'BizError' && info && info.errorMessage && info.errorCode) {
-    const url = info?.url;
-    const method = info?.method;
-    const req_info = (method ? method : '请求接口') + ' ' + url;
-    const req_info_display = url ? req_info : null;
-    notification.error({
-      message: '后端处理异常',
-      description: (
-        <>
-          <p>
-            {req_info_display && (
-              <>
-                {req_info_display}
-                <br />
-              </>
-            )}
-            后端应答码 [{info.errorCode}]<br />
-            后端应答信息: 【{info.errorMessage}】
-          </p>
-        </>
-      ),
-    });
-    console.error(
-      `后端处理异常 Request(${req_info_display}) ErrorCode(${info.errorCode}) ErrorMsg(${info.errorMessage})`,
-    );
-    return;
   }
 
   notification.error({
@@ -245,19 +216,36 @@ export const request: RequestConfig = {
   requestInterceptors: [addToken],
   errorConfig: {
     adaptor: (res, ctx) => {
-      // success为false时
-      // 函数返回后，umi会抛出一个RequestError
-      // 幸运的话，会被RequestConfig.errorHandler接收
-      // suceess为true时，什么都不会发生
-      return {
-        success: res.code == '000000',
-        data: res,
-        errorCode: res.code,
-        errorMessage: res.message,
-        showType: ErrorShowType.NOTIFICATION,
-        url: ctx?.req?.url,
-        method: ctx?.req?.options?.method,
-      };
+      if (res.code != '000000') {
+        // 应答码不为000000时，认定为'后端处理异常'
+        // 右上角会弹出浮窗显示错误类型，不影响其他逻辑
+        // 如果不希望弹出浮窗，可以设置request选项 skipErrorHandle: true
+        const url = ctx?.req?.url;
+        const method = ctx?.req?.options?.method;
+        const req_info = (method ? method : '请求接口') + ' ' + url;
+        const req_info_display = url ? req_info : null;
+        notification.error({
+          message: '后端处理异常',
+          description: (
+            <>
+              <p>
+                {req_info_display && (
+                  <>
+                    {req_info_display}
+                    <br />
+                  </>
+                )}
+                后端应答码 [{res.code}]<br />
+                后端应答信息: 【{res.message}】
+              </p>
+            </>
+          ),
+        });
+        console.error(
+          `后端处理异常 Request(${req_info_display}) ErrorCode(${res.code}) ErrorMsg(${res.message})`,
+        );
+      }
+      return res;
     },
   },
 };

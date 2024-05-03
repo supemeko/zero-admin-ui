@@ -7,6 +7,7 @@ export async function queryCategoryAttribute(params: AttributeCategoryListParams
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

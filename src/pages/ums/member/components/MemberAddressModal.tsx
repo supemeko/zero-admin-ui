@@ -115,7 +115,7 @@ const MemberAddressModal: React.FC<CreateFormProps> = (props) => {
                 current: res.current,
               };
             } else {
-              return message.error(res.msg);
+              return message.error(res.message);
             }
           });
         }}

@@ -7,6 +7,7 @@ export async function queryCategory(params: CategoryListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

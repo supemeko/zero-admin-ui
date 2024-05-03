@@ -40,7 +40,7 @@ const CreateMenuForm: React.FC<CreateFormProps> = (props) => {
           });
           setTreeData(tree1);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

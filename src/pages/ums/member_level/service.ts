@@ -7,6 +7,7 @@ export async function queryLevel(params?: LevelListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

@@ -45,7 +45,7 @@ const CreateDeptForm: React.FC<CreateFormProps> = (props) => {
           });
           setDeptListItem(tree1);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

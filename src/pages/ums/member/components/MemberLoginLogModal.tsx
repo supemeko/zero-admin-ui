@@ -88,7 +88,6 @@ const MemberLogModal: React.FC<CreateFormProps> = (props) => {
             ...params,
             memberId,
           }).then((res) => {
-            console.log(res);
             if (res.code === '000000') {
               return {
                 data: res.data,
@@ -97,7 +96,7 @@ const MemberLogModal: React.FC<CreateFormProps> = (props) => {
                 current: res.current,
               };
             } else {
-              return message.error(res.msg);
+              return message.error(res.message);
             }
           });
         }}

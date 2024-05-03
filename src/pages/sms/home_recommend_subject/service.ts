@@ -50,5 +50,6 @@ export async function querySubject(params: SubjectListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }

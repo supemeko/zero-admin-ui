@@ -7,6 +7,7 @@ export async function queryDept(params: DeptListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

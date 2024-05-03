@@ -28,5 +28,6 @@ export async function queryCompanyAddress(params: ReturnApplyListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }

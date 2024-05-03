@@ -42,6 +42,7 @@ export async function queryAddress(params: AddressTableListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 
@@ -51,5 +52,6 @@ export async function queryLoginLog(params: LoginLogListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }

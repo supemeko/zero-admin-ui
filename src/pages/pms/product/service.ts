@@ -49,5 +49,6 @@ export async function queryPrefrenceArea(params: PrefrenceAreaParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }

@@ -32,7 +32,7 @@ const ProductPromotionalInfo: React.FC<BaseInfoProps> = (props) => {
         if (res.code === '000000') {
           setLevelListItem(res.data);
         } else {
-          message.error(res.msg);
+          message.error(res.message);
         }
       });
     }

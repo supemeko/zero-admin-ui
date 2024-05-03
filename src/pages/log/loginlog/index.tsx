@@ -106,7 +106,7 @@ const LoginLogList: React.FC = () => {
           weekLoginCount: res.data.weekLoginCount,
         });
       } else {
-        message.error(res.msg);
+        message.error(res.message);
       }
     });
   }, []);

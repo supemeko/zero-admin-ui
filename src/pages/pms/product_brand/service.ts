@@ -13,6 +13,7 @@ export async function queryBrand(params: BrandListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 

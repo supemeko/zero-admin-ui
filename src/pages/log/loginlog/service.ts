@@ -33,5 +33,6 @@ export async function removeLoginLog(params: { ids: number[] }) {
 export async function statisticsLoginLog() {
   return request('/api/sys/loginLog/statisticsLoginLog', {
     method: 'GET',
+    skipErrorHandler: true,
   });
 }

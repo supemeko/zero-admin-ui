@@ -7,6 +7,7 @@ export async function queryMenu(params: MenuListParams) {
     data: {
       ...params,
     },
+    skipErrorHandler: true,
   });
 }
 
